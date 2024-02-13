@@ -1,0 +1,8 @@
+back/.venv
+.env
+.vscode/launch.json
+back/__pycache__/
+back/src/api/__pycache__/
+back/src/api/__pycache__/
+back/src/api/imageRouter/__pycache__/
+back/src/domain/entities/__pycache__/
