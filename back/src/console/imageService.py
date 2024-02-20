@@ -1,17 +1,14 @@
+import io
 from typing import Optional
-from back.src.domain.entities.image import Image
-from back.src.domain.inputs.iImageService import IImageService
 from PIL import Image as imagePil
 
-class ImageService(IImageService):
-    def compress(self, image: Image) -> Optional[Image]:
-        imagePil = Image.open(image.url)
+from src.domain.entities.image import Image
+from src.domain.inputs.iImageService import IImageService
 
-        imagePil.save("image-file-compressed",
-                    "JPEG",
-                    optimize = True,
-                    quality = 10)
-        return
-    
-    def get(self) -> str:
-        return "Hello, World!"
+class ImageService(IImageService):
+    def compress(image: Image) -> Optional[Image]:
+        img = imagePil.open(io.BytesIO(image.content))
+        if img.mode in ("RGBA", "P"):
+            img = img.convert("RGB")
+        img.save(image.filename, optimize=True, quality=10)
+        return Image(content=img, filename=image.filename)
