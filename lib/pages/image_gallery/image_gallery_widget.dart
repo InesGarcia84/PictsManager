@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import '/backend/api_requests/api_calls.dart';
 import '/components/imagename_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -57,7 +59,7 @@ class _ImageGalleryWidgetState extends State<ImageGalleryWidget> {
           onPressed: () async {
             final selectedMedia = await selectMediaWithSourceBottomSheet(
               context: context,
-              imageQuality: 75,
+              imageQuality: 20,
               allowPhoto: true,
             );
             if (selectedMedia != null &&
@@ -89,7 +91,7 @@ class _ImageGalleryWidgetState extends State<ImageGalleryWidget> {
               }
             }
 
-            await showModalBottomSheet(
+            String? name = await showModalBottomSheet(
               isScrollControlled: true,
               backgroundColor: Colors.transparent,
               enableDrag: false,
@@ -101,18 +103,22 @@ class _ImageGalleryWidgetState extends State<ImageGalleryWidget> {
                       : FocusScope.of(context).unfocus(),
                   child: Padding(
                     padding: MediaQuery.viewInsetsOf(context),
-                    child: ImagenameWidget(),
+                    child: ImagenameWidget(
+                      image: _model.uploadedLocalFile,
+                    ),
                   ),
                 );
               },
-            ).then((value) => safeSetState(() {}));
+            );
+            if (name == null) return;
 
             _model.apiResultw6k = await AddImageInLibraryCall.call(
               token: 'zrzrzerezr',
               image: _model.uploadedLocalFile,
               libraryId: widget.libraryId,
-              size: 23,
-              name: 'name',
+              size: bytesToInt(
+                  _model.uploadedLocalFile.bytes?.lengthInBytes ?? 0, 0),
+              name: name,
             );
             if ((_model.apiResultw6k?.succeeded ?? true)) {
               context.safePop();
@@ -121,12 +127,12 @@ class _ImageGalleryWidgetState extends State<ImageGalleryWidget> {
                 context: context,
                 builder: (alertDialogContext) {
                   return AlertDialog(
-                    title: Text('Error'),
-                    content: Text('Error while uploading'),
+                    title: const Text('Error'),
+                    content: Text('Error while uploading image $name'),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(alertDialogContext),
-                        child: Text('Ok'),
+                        child: const Text('Ok'),
                       ),
                     ],
                   );
@@ -148,7 +154,7 @@ class _ImageGalleryWidgetState extends State<ImageGalleryWidget> {
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
           leading: Align(
-            alignment: AlignmentDirectional(0.0, 0.0),
+            alignment: const AlignmentDirectional(0.0, 0.0),
             child: FFButtonWidget(
               onPressed: () {
                 Navigator.pop(context);
@@ -161,15 +167,17 @@ class _ImageGalleryWidgetState extends State<ImageGalleryWidget> {
               ),
               options: FFButtonOptions(
                 height: 40.0,
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                iconPadding:
+                    const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                 color: FlutterFlowTheme.of(context).primaryBackground,
                 textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                       fontFamily: 'Readex Pro',
                       color: Colors.white,
                     ),
                 elevation: 0.0,
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.transparent,
                   width: 1.0,
                 ),
@@ -194,17 +202,18 @@ class _ImageGalleryWidgetState extends State<ImageGalleryWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.0, -1.0),
+            alignment: const AlignmentDirectional(0.0, -1.0),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          16.0, 0.0, 16.0, 0.0),
                       child: Builder(
                         builder: (context) {
                           final images = widget.imageIds!.toList();
@@ -221,7 +230,7 @@ class _ImageGalleryWidgetState extends State<ImageGalleryWidget> {
                                 List.generate(images.length, (imagesIndex) {
                               final imagesItem = images[imagesIndex];
                               return Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     8.0, 8.0, 8.0, 0.0),
                                 child: FutureBuilder<ApiCallResponse>(
                                   future: GetImagesCall.call(

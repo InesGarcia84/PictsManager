@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/imagename_widget.dart';
@@ -49,7 +51,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            await showModalBottomSheet(
+            String? name = await showModalBottomSheet(
               isScrollControlled: true,
               backgroundColor: Colors.transparent,
               enableDrag: false,
@@ -61,27 +63,27 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                       : FocusScope.of(context).unfocus(),
                   child: Padding(
                     padding: MediaQuery.viewInsetsOf(context),
-                    child: ImagenameWidget(),
+                    child: const ImagenameWidget(),
                   ),
                 );
               },
-            ).then((value) => safeSetState(() {}));
-
+            );
+            if (name == null) return;
             _model.apiResult32b = await UploadNewLibraryCall.call(
               token: 'token',
-              name: 'name',
+              name: name,
             );
             if ((_model.apiResult32b?.succeeded ?? true)) {
               await showDialog(
                 context: context,
                 builder: (alertDialogContext) {
                   return AlertDialog(
-                    title: Text('Uploaded'),
-                    content: Text('New library created'),
+                    title: const Text('Uploaded'),
+                    content: const Text('New library created'),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(alertDialogContext),
-                        child: Text('Ok'),
+                        child: const Text('Ok'),
                       ),
                     ],
                   );
@@ -92,12 +94,12 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                 context: context,
                 builder: (alertDialogContext) {
                   return AlertDialog(
-                    title: Text('Error'),
-                    content: Text('Unable to create library'),
+                    title: const Text('Error'),
+                    content: Text('Unable to create library: $name'),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(alertDialogContext),
-                        child: Text('Ok'),
+                        child: const Text('Ok'),
                       ),
                     ],
                   );
@@ -119,7 +121,8 @@ class _GalleryWidgetState extends State<GalleryWidget> {
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
           title: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+            padding:
+                const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
             child: Text(
               'Gallery',
               style: FlutterFlowTheme.of(context).headlineLarge.override(
@@ -130,7 +133,8 @@ class _GalleryWidgetState extends State<GalleryWidget> {
           ),
           actions: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FlutterFlowIconButton(
                 borderRadius: 20.0,
                 buttonSize: 40.0,
@@ -151,17 +155,18 @@ class _GalleryWidgetState extends State<GalleryWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.0, -1.0),
+            alignment: const AlignmentDirectional(0.0, -1.0),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          16.0, 0.0, 16.0, 0.0),
                       child: FutureBuilder<ApiCallResponse>(
                         future: GetLibrariesCall.call(),
                         builder: (context, snapshot) {
@@ -246,8 +251,9 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                                     List.generate(list.length, (listIndex) {
                                   final listItem = list[listIndex];
                                   return Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8.0, 8.0, 8.0, 0.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            8.0, 8.0, 8.0, 0.0),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -283,9 +289,8 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                                               BorderRadius.circular(8.0),
                                         ),
                                         child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  12.0, 12.0, 12.0, 12.0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(12.0, 12.0, 12.0, 12.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:

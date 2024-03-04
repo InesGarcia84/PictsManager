@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -7,8 +9,24 @@ import 'package:provider/provider.dart';
 import 'imagename_model.dart';
 export 'imagename_model.dart';
 
+String formatBytes(int bytes, int decimals) {
+  if (bytes <= 0) return "0 B";
+  const suffixes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+  var i = (log(bytes) / log(1024)).floor();
+  return '${(bytes / pow(1024, i)).toStringAsFixed(decimals)} ${suffixes[i]}';
+}
+
+
+int bytesToInt(int bytes, int decimals) {
+  if (bytes <= 0) return 0;
+  var i = (log(bytes) / log(1024)).floor();
+  return i;
+}
+
 class ImagenameWidget extends StatefulWidget {
-  const ImagenameWidget({super.key});
+  const ImagenameWidget({super.key, this.image});
+
+  final FFUploadedFile? image;
 
   @override
   State<ImagenameWidget> createState() => _ImagenameWidgetState();
@@ -52,6 +70,12 @@ class _ImagenameWidgetState extends State<ImagenameWidget> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            IconButton(
+              onPressed: () {
+                context.safePop();
+              },
+              icon: const Icon(Icons.close),
+            ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
               child: Text(
@@ -59,6 +83,24 @@ class _ImagenameWidgetState extends State<ImagenameWidget> {
                 style: FlutterFlowTheme.of(context).bodyLarge,
               ),
             ),
+            if (widget.image != null && widget.image!.bytes != null)
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                child: Image.memory(
+                  widget.image!.bytes!,
+                  width: 240.0,
+                  height: 240.0,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            if (widget.image != null && widget.image!.bytes != null)
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                child: Text(
+                  'Size of image: ${formatBytes(widget.image!.bytes!.buffer.lengthInBytes, 0)}',
+                  style: FlutterFlowTheme.of(context).bodyLarge,
+                ),
+              ),
             Container(
               width: 240.0,
               child: TextFormField(
@@ -105,7 +147,7 @@ class _ImagenameWidgetState extends State<ImagenameWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
-                  context.safePop();
+                  context.pop(_model.textController.text);
                 },
                 text: 'Upload',
                 options: FFButtonOptions(
