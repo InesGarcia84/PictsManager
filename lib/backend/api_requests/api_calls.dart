@@ -30,6 +30,60 @@ class GetLibrariesCall {
   }
 }
 
+class AddImageInLibraryCall {
+  static Future<ApiCallResponse> call({
+    String? token = 'notoken',
+    FFUploadedFile? image,
+    int? libraryId,
+    int? size,
+    String? name = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Add image in library',
+      apiUrl: 'https://pictsManager.com/putImageInLibrary',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {
+        'token': token,
+        'image': image,
+        'libraryId': libraryId,
+        'size': size,
+        'name': name,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class AddImageInLibraryCopyCall {
+  static Future<ApiCallResponse> call({
+    String? token = 'notoken',
+    FFUploadedFile? name,
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Add image in library Copy',
+      apiUrl: 'https://pictsManager.com/putImageInLibrary',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {
+        'token': token,
+        'name': name,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class GetImagesCall {
   static Future<ApiCallResponse> call({
     int? id = 0,
