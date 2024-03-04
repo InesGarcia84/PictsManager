@@ -56,7 +56,7 @@ class _ImageGalleryWidgetState extends State<ImageGalleryWidget> {
             alignment: AlignmentDirectional(0.0, 0.0),
             child: FFButtonWidget(
               onPressed: () {
-                print('Button pressed ...');
+                Navigator.pop(context);
               },
               text: '',
               icon: Icon(
