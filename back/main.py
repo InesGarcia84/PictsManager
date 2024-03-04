@@ -1,9 +1,10 @@
+# main.py
 from fastapi import FastAPI
+# from routes.user import user_router
+from routes.auth import auth_router
 
-from src.api.server import initServer
+app = FastAPI()
 
-app = FastAPI(title="FASTAPI",
-              description="test",
-              version="1.0.0")
-
-initServer(app)
+# Include the user routes
+app.include_router(auth_router)
+# app.include_router(user_router, prefix="/api")

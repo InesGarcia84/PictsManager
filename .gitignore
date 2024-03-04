@@ -1,13 +1,25 @@
-back/.venv
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Environment
+/back/.venv/
+/back/.env/
 .env
-.vscode/launch.json
-back/__pycache__/
-back/src/api/__pycache__/
-back/src/api/__pycache__/
-back/src/api/imageRouter/__pycache__/
-back/src/domain/entities/__pycache__/
-back/.vscode/launch.json
-back/src/console/__pycache__/
-back/src/domain/inputs/__pycache__/
-back/src/__pycache__/settings.cpython-310.pyc
-back/src/api/authRouter/__pycache__/
+
+# IDE
+.vscode/
+.idea/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Temporary files
+*.tmp
+
+# Editor-specific files
+*~
+
+# OS-generated files
+.DS_Store
+Thumbs.db
