@@ -1,7 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/imagename_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,10 +15,12 @@ class ImageGalleryWidget extends StatefulWidget {
     super.key,
     required this.imageIds,
     required this.name,
+    required this.libraryId,
   });
 
   final List<int>? imageIds;
   final String? name;
+  final int? libraryId;
 
   @override
   State<ImageGalleryWidget> createState() => _ImageGalleryWidgetState();
@@ -49,6 +53,97 @@ class _ImageGalleryWidgetState extends State<ImageGalleryWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            final selectedMedia = await selectMediaWithSourceBottomSheet(
+              context: context,
+              imageQuality: 75,
+              allowPhoto: true,
+            );
+            if (selectedMedia != null &&
+                selectedMedia
+                    .every((m) => validateFileFormat(m.storagePath, context))) {
+              setState(() => _model.isDataUploading = true);
+              var selectedUploadedFiles = <FFUploadedFile>[];
+
+              try {
+                selectedUploadedFiles = selectedMedia
+                    .map((m) => FFUploadedFile(
+                          name: m.storagePath.split('/').last,
+                          bytes: m.bytes,
+                          height: m.dimensions?.height,
+                          width: m.dimensions?.width,
+                          blurHash: m.blurHash,
+                        ))
+                    .toList();
+              } finally {
+                _model.isDataUploading = false;
+              }
+              if (selectedUploadedFiles.length == selectedMedia.length) {
+                setState(() {
+                  _model.uploadedLocalFile = selectedUploadedFiles.first;
+                });
+              } else {
+                setState(() {});
+                return;
+              }
+            }
+
+            await showModalBottomSheet(
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              enableDrag: false,
+              context: context,
+              builder: (context) {
+                return GestureDetector(
+                  onTap: () => _model.unfocusNode.canRequestFocus
+                      ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                      : FocusScope.of(context).unfocus(),
+                  child: Padding(
+                    padding: MediaQuery.viewInsetsOf(context),
+                    child: ImagenameWidget(),
+                  ),
+                );
+              },
+            ).then((value) => safeSetState(() {}));
+
+            _model.apiResultw6k = await AddImageInLibraryCall.call(
+              token: 'zrzrzerezr',
+              image: _model.uploadedLocalFile,
+              libraryId: widget.libraryId,
+              size: 23,
+              name: 'name',
+            );
+            if ((_model.apiResultw6k?.succeeded ?? true)) {
+              context.safePop();
+            } else {
+              await showDialog(
+                context: context,
+                builder: (alertDialogContext) {
+                  return AlertDialog(
+                    title: Text('Error'),
+                    content: Text('Error while uploading'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(alertDialogContext),
+                        child: Text('Ok'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+
+            setState(() {});
+          },
+          backgroundColor: FlutterFlowTheme.of(context).primary,
+          elevation: 8.0,
+          child: Icon(
+            Icons.add,
+            color: FlutterFlowTheme.of(context).info,
+            size: 24.0,
+          ),
+        ),
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
