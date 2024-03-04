@@ -60,14 +60,14 @@ class AddImageInLibraryCall {
   }
 }
 
-class AddImageInLibraryCopyCall {
+class UploadNewLibraryCall {
   static Future<ApiCallResponse> call({
     String? token = 'notoken',
-    FFUploadedFile? name,
+    String? name = '',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'Add image in library Copy',
-      apiUrl: 'https://pictsManager.com/putImageInLibrary',
+      callName: 'upload new library',
+      apiUrl: 'https://pictsManager.com/uploadNewLibrary',
       callType: ApiCallType.POST,
       headers: {},
       params: {

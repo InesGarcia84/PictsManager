@@ -16,7 +16,7 @@ class GalleryModel extends FlutterFlowModel<GalleryWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Backend Call - API (Add image in library Copy)] action in FloatingActionButton widget.
+  // Stores action output result for [Backend Call - API (upload new library)] action in FloatingActionButton widget.
   ApiCallResponse? apiResult32b;
 
   /// Initialization and disposal methods.
