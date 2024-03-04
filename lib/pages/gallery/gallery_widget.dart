@@ -67,9 +67,9 @@ class _GalleryWidgetState extends State<GalleryWidget> {
               },
             ).then((value) => safeSetState(() {}));
 
-            _model.apiResult32b = await AddImageInLibraryCopyCall.call(
+            _model.apiResult32b = await UploadNewLibraryCall.call(
               token: 'token',
-              name: name,
+              name: 'name',
             );
             if ((_model.apiResult32b?.succeeded ?? true)) {
               await showDialog(
