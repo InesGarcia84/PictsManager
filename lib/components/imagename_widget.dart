@@ -55,7 +55,7 @@ class _ImagenameWidgetState extends State<ImagenameWidget> {
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
               child: Text(
-                'Please enter the name of the image:',
+                'Please enter the name:',
                 style: FlutterFlowTheme.of(context).bodyLarge,
               ),
             ),
@@ -66,7 +66,7 @@ class _ImagenameWidgetState extends State<ImagenameWidget> {
                 focusNode: _model.textFieldFocusNode,
                 obscureText: false,
                 decoration: InputDecoration(
-                  hintText: 'ext \"Image Name',
+                  hintText: 'Enter name...',
                   hintStyle: FlutterFlowTheme.of(context).bodyLarge,
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -107,7 +107,7 @@ class _ImagenameWidgetState extends State<ImagenameWidget> {
                 onPressed: () async {
                   context.safePop();
                 },
-                text: 'Button',
+                text: 'Upload',
                 options: FFButtonOptions(
                   height: 40.0,
                   padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
