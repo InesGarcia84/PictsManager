@@ -113,14 +113,57 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                           final wrapGetLibrariesResponse = snapshot.data!;
                           return Builder(
                             builder: (context) {
-                              final list = (wrapGetLibrariesResponse.jsonBody
-                                          .toList()
-                                          .map<LibraryStruct?>(
-                                              LibraryStruct.maybeFromMap)
-                                          .toList() as Iterable<LibraryStruct?>)
-                                      .withoutNulls
-                                      ?.toList() ??
-                                  [];
+                              final list = [
+                                LibraryStruct(
+                                  name: 'Library 1',
+                                  id: 1,
+                                  imageIds: [
+                                    1,
+                                    2,
+                                    3,
+                                  ],
+                                ),
+                                LibraryStruct(
+                                    name: 'Library 2',
+                                    id: 2,
+                                    imageIds: [
+                                      4,
+                                      5,
+                                      6,
+                                      7,
+                                      8,
+                                    ]),
+                                LibraryStruct(
+                                  name: 'Library 3',
+                                  id: 3,
+                                  imageIds: [
+                                    9,
+                                    10,
+                                    11,
+                                    12,
+                                    13,
+                                  ],
+                                ),
+                                LibraryStruct(
+                                  name: 'Library 4',
+                                  id: 4,
+                                  imageIds: [
+                                    14,
+                                    15,
+                                    16,
+                                    17,
+                                    18,
+                                  ],
+                                ),
+                              ];
+                              // (wrapGetLibrariesResponse.jsonBody
+                              //             .toList()
+                              //             .map<LibraryStruct?>(
+                              //                 LibraryStruct.maybeFromMap)
+                              //             .toList() as Iterable<LibraryStruct?>)
+                              //         .withoutNulls
+                              //         ?.toList() ??
+                              //     [];
                               return Wrap(
                                 spacing: 0.0,
                                 runSpacing: 0.0,

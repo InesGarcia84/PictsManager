@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -207,7 +206,7 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                                 child: CachedNetworkImage(
                                   fadeInDuration: Duration(milliseconds: 500),
                                   fadeOutDuration: Duration(milliseconds: 500),
-                                  imageUrl: currentUserPhoto,
+                                  imageUrl: "https://picsum.photos/seed/951/600",
                                   width: 100.0,
                                   height: 100.0,
                                   fit: BoxFit.cover,
@@ -223,7 +222,7 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 0.0, 0.0),
                   child: Text(
-                    currentUserDisplayName,
+                    "currentUserDisplayName",
                     style: FlutterFlowTheme.of(context).displaySmall,
                   ),
                 ),
@@ -231,7 +230,7 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                   padding: EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 0.0, 16.0),
                   child: Text(
                     valueOrDefault<String>(
-                      currentUserEmail,
+                      "currentUserEmail",
                       'andrew@domainname.com',
                     ),
                     style: FlutterFlowTheme.of(context).labelLarge.override(
