@@ -9,8 +9,8 @@ class ImageRepository(IImageRepository):
     def __init__(self, session: Session):
         self.session = session
 
-    def create_image(self, image: str, name: str, size: int) -> Image:
-        new_image = Image(image=image, name=name, size=size)
+    def create_image(self, image: str, name: str, size: int, library_id) -> Image:
+        new_image = Image(image=image, name=name, size=size, library_id=library_id)
         self.session.add(new_image)
         self.session.commit()
         return new_image
@@ -18,8 +18,9 @@ class ImageRepository(IImageRepository):
     def get_image_by_id(self, image_id: int) -> Image:
         return self.session.query(Image).filter(Image.id == image_id).first()
     
-    def get_all_images(self) -> List[Image]:
-        return self.session.query(Image).all()
+    def get_all_images(self, library_id: int) -> List[Image]:
+        library_images = self.session.query(Image).filter_by(library_id=library_id).all()
+        return library_images
     
     def delete_image(self, image_id: int):
         image = self.get_image_by_id(image_id)

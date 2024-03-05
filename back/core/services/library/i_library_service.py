@@ -6,7 +6,7 @@ from core.entities.library import Library
 
 class ILibraryService(ABC):
     @abstractmethod
-    def create_library(self, title: str, author: str, image_ids: List[int]) -> Library:
+    def create_library(self, title: str, author: str) -> Library:
         pass
 
     @abstractmethod

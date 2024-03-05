@@ -7,7 +7,7 @@ class LibraryService(ILibraryService):
         self.library_repository = library_repository
 
     def create_library(self, title: str, author: str):
-        lib = Library(title=title, author=author, image_ids=[])
+        lib = Library(title=title, author=author)
         return self.library_repository.create_library(lib)
 
     def get_library_by_id(self, library_id: int):
