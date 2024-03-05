@@ -11,5 +11,6 @@ app = FastAPI()
 # Include the user routes
 app.include_router(auth_router)
 app.include_router(user_router, prefix="/api")
-app.include_router(image_router, prefix="/api")
 app.include_router(library_router, prefix="/api")
+app.include_router(image_router, prefix="/api")
+

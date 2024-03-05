@@ -5,9 +5,10 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from core.entities.user import User
-from core.entities.image import Image
+from infrastructure.db import Base
 from core.entities.library import Library
+from core.entities.image import Image
+from core.entities.user import User
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -23,7 +24,7 @@ if config.config_file_name is not None:
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 # Create a new MetaData object
-target_metadata = [User.metadata, Library.metadata, Image.metadata]
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
