@@ -5,9 +5,9 @@ from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordBearer
 import requests
 from jose import jwt
-from adapters.user.user_repository import UserRepository
+from adapters.user_repository import UserRepository
 from infrastructure.db import get_db
-from core.services.user_service import UserService
+from core.services.user.user_service import UserService
 
 
 auth_router = APIRouter(tags=["Auth"])

@@ -2,7 +2,7 @@
 from typing import List
 from sqlalchemy.orm import Session
 from core.entities.user import User
-from ports.user.i_user_repository import IUserRepository
+from ports.i_user_repository import IUserRepository
 
 class UserRepository(IUserRepository):
 

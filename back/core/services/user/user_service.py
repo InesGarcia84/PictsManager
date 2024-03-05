@@ -1,8 +1,8 @@
 # core/user_service.py
 import json
 from typing import List
-from adapters.user.user_repository import UserRepository
-from core.services.i_user_service import IUserService
+from adapters.user_repository import UserRepository
+from core.services.user.i_user_service import IUserService
 from core.entities.user import User
 
 class UserService(IUserService):
