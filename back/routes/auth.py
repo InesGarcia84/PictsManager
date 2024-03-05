@@ -1,4 +1,3 @@
-import json
 import os
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
@@ -44,12 +43,10 @@ async def auth_google(code: str):
     response = requests.post(token_url, data=data)
     access_token = response.json().get("access_token")
     user_info = requests.get("https://www.googleapis.com/oauth2/v1/userinfo", headers={"Authorization": f"Bearer {access_token}"})
-
-    user = json.loads(user_info.text)
     
-    user_service.create_user(google_auth_id=user["id"], username=user["name"], email=user["email"], picture=user["picture"])
+    user = user_service.create_user(user_info)
 
-    return user_info
+    return user
 
 @auth_router.get("/token")
 async def get_token(token: str = Depends(oauth2_scheme)):

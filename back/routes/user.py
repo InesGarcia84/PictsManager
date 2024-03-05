@@ -1,24 +1,31 @@
-# # routes/users.py
-# from fastapi import APIRouter, HTTPException
-# from typing import List
-# from core.entities.user import User
-# from ports.user.i_user_repository import UserRepository
+# routes/users.py
+from fastapi import APIRouter, HTTPException
 
-# user_router = APIRouter()
+from sqlalchemy.orm import Session
+from infrastructure.db import get_db
+from core.services.user_service import UserService
+from adapters.user.user_repository import UserRepository
 
-# @user_router.post("/user/", response_model=User)
-# async def create_user(id:int ,username: str, email: str,picture: str, user_repository: UserRepository):
-#     new_user = User(id=id, username=username, email=email, picture=picture)
-#     created_user = user_repository.create_user(new_user)
-#     return created_user
+user_router = APIRouter()
 
-# @user_router.get("/user/{user_id}", response_model=User)
-# async def read_user(user_id: int, user_repository: UserRepository):
-#     user = user_repository.get_user_by_id(user_id)
-#     if user is None:
-#         raise HTTPException(status_code=404, detail="User not found")
-#     return user
+# Use a session from the session factory
+db: Session = next(get_db())
+user_repository = UserRepository(db)
 
-# @user_router.get("/user/", response_model=List[User])
-# async def read_users(user_repository: UserRepository):
-#     return user_repository.get_all_users()
+user_service = UserService(user_repository)
+
+@user_router.delete("/user/{user_id}")
+async def delete_user(user_id: int):
+    user_service.delete_user(user_id)
+    
+
+@user_router.get("/user/{user_id}")
+async def read_user(user_id: int):
+    user = user_service.get_user_by_id(user_id)
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user.__dict__
+
+@user_router.get("/user/")
+async def read_users():
+    return user_service.get_all_users()

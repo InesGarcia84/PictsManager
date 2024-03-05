@@ -13,7 +13,7 @@ class UserRepository(IUserRepository):
         new_user = User(google_auth_id=google_auth_id, username=username, email=email, picture=picture)
         self.session.add(new_user)
         self.session.commit()
-        return new_user
+        return self.get_user_by_google_id(google_auth_id)
     
     def get_user_by_id(self, user_id: int) -> User:
         return self.session.query(User).filter(User.id == user_id).first()
@@ -21,3 +21,10 @@ class UserRepository(IUserRepository):
     def get_all_users(self) -> List[User]:
         return self.session.query(User).all()
     
+    def get_user_by_google_id(self, google_auth_id: str) -> User:
+        return self.session.query(User).filter(User.google_auth_id == google_auth_id).first()
+
+    def delete_user(self, user_id: int):
+        user = self.session.query(User).filter(User.id == user_id).first()
+        self.session.delete(user)
+        self.session.commit()
