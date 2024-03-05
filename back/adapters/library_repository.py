@@ -1,4 +1,5 @@
 from core.entities.library import Library
+from core.entities.user_library import UserLibrary
 from ports.i_library_repository import ILibraryRepository
 
 
@@ -11,6 +12,12 @@ class LibraryRepository(ILibraryRepository):
         self.session.commit()
         return library
 
+    def add_user_to_library(self, user_id: int, library_id: int):
+        userLibrary = UserLibrary(user_id=user_id, library_id=library_id)
+        self.session.add(userLibrary)
+        self.session.commit()
+        return userLibrary
+    
     def get_library_by_id(self, library_id: int):
         return self.session.query(Library).filter(Library.id == library_id).first()
     
@@ -22,5 +29,6 @@ class LibraryRepository(ILibraryRepository):
         self.session.delete(library)
         self.session.commit()
     
-    # def get_libraries_by_user(self, id: int):
-    #     return self.session.query(Library).filter(Library.author.id == id).all()
+    def get_libraries_by_user(self, user_id: int):
+        libraries = self.session.query(Library).join(UserLibrary).filter(UserLibrary.user_id == user_id).all()
+        return libraries

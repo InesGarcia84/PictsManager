@@ -1,8 +1,7 @@
 # models.py
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
+from sqlalchemy.orm import relationship
+from infrastructure.db import Base
 
 class User(Base):
     __tablename__ = 'users'
@@ -12,3 +11,9 @@ class User(Base):
     username = Column(String, index=True)
     email = Column(String, unique=True, index=True)
     picture = Column(String)  # Assuming the picture is stored as a URL
+
+    libraries = relationship(
+        "Library",
+        secondary="user_library",
+        back_populates="users",
+    )

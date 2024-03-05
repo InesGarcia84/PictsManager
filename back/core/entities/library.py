@@ -1,8 +1,6 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.dialects.postgresql import ARRAY
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
+from sqlalchemy.orm import relationship
+from infrastructure.db import Base
 
 class Library(Base):
     __tablename__ = 'library'
@@ -10,4 +8,14 @@ class Library(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
     author = Column(String, index=True)
-    image_ids = Column(ARRAY(Integer), index=True)
+
+
+    # Define the relationship with Image
+    images = relationship("Image", back_populates="library")
+
+    # Define the relationship with User
+    users = relationship(
+        "User",
+        secondary="user_library",
+        back_populates="libraries",
+    )
