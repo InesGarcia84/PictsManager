@@ -1,10 +1,9 @@
 from abc import ABC
-from typing import List
 
 
 class ILibraryRepository(ABC):
     
-    def create_library(self, title: str, author: str, image_ids: List[int]):
+    def create_library(self, title: str, author: str, user_id: int):
         pass
 
     def get_library_by_id(self, library_id: int):
