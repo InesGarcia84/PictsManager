@@ -12,3 +12,10 @@ class Library(Base):
 
     # Define the relationship with Image
     images = relationship("Image", back_populates="library")
+
+    # Define the relationship with User
+    users = relationship(
+        "User",
+        secondary="user_library",
+        back_populates="libraries",
+    )

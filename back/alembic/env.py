@@ -9,6 +9,7 @@ from infrastructure.db import Base
 from core.entities.library import Library
 from core.entities.image import Image
 from core.entities.user import User
+from core.entities.user_library import UserLibrary
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
