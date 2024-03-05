@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from routes.auth import auth_router
 from routes.user import user_router
 from routes.image import image_router
+from routes.library import library_router
 
 app = FastAPI()
 
@@ -11,3 +12,4 @@ app = FastAPI()
 app.include_router(auth_router)
 app.include_router(user_router, prefix="/api")
 app.include_router(image_router, prefix="/api")
+app.include_router(library_router, prefix="/api")
