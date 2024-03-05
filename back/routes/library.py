@@ -36,3 +36,7 @@ async def delete_library(library_id: int):
 @library_router.get("/library/user/{id}")
 async def get_libraries_by_user(user_id: int):
     return library_service.get_libraries_by_user(user_id)
+
+@library_router.post("/library/user/{user_id}/add/{library_id}")
+async def add_user_to_library(user_id: int, library_id: int):
+    return library_service.add_user_to_library(user_id, library_id)
