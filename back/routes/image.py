@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException
 from sqlalchemy.orm import Session
 from infrastructure.db import get_db
 from core.services.image.image_service import ImageService
-from adapters.image.image_repository import ImageRepository
+from adapters.image_repository import ImageRepository
 
 image_router = APIRouter()
 

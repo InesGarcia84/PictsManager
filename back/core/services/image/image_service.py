@@ -1,6 +1,6 @@
 # core/image_service.py
 from typing import List
-from adapters.image.image_repository import ImageRepository
+from adapters.image_repository import ImageRepository
 from core.services.image.i_image_service import IImageService
 from core.entities.image import Image
 

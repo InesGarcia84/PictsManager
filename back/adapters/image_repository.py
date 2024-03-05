@@ -2,7 +2,7 @@
 from typing import List
 from sqlalchemy.orm import Session
 from core.entities.image import Image
-from ports.image.i_image_repository import IImageRepository
+from ports.i_image_repository import IImageRepository
 
 class ImageRepository(IImageRepository):
 
