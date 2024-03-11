@@ -1,5 +1,4 @@
 # core/user_service.py
-import json
 from typing import List
 from adapters.user_repository import UserRepository
 from core.services.user.i_user_service import IUserService
@@ -11,11 +10,10 @@ class UserService(IUserService):
 
     def create_user(self, user_info: str) -> User:
 
-        user = json.loads(user_info.text)
-        google_auth_id=user["id"]
-        username=user["name"]
-        email=user["email"]
-        picture=user["picture"]
+        google_auth_id=user_info["sub"]
+        username=user_info["name"]
+        email=user_info["email"]
+        picture=user_info["picture"]
 
         # Check if user already exist
 
