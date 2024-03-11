@@ -48,7 +48,6 @@ async def login(request: Request):
     url = request.url_for('auth')
     return await oauth.google.authorize_redirect(request, url)
 
-
 @auth_router.get('/auth')
 async def auth(request: Request):
     try:

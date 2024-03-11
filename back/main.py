@@ -1,4 +1,6 @@
 # main.py
+import os
+from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException, Request
 from starlette.middleware.sessions import SessionMiddleware
 from routes.auth import auth_router
@@ -7,7 +9,9 @@ from routes.image import image_router
 from routes.library import library_router
 
 app = FastAPI()
-app.add_middleware(SessionMiddleware, secret_key="!secret")
+load_dotenv()
+SECRET_KEY = os.getenv("SECRET_KEY")
+app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
 
 
 async def check_auth_user(request: Request):
