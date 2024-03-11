@@ -9,6 +9,18 @@ services:
       - .:/back
     ports:
       - 8000:8000
+    depends_on:
+      - db
+    command: >
+      bash -c "
+        while !</dev/tcp/db/5432;
+        do
+          echo 'Waiting for db to be ready...'
+          sleep 10;
+        done;
+        alembic -c /PictManager/alembic.ini upgrade head;
+        uvicorn main:app --host 127.0.0.1 --port 8000
+      "
 
   db:
     image: postgres:13
