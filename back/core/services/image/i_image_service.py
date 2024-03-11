@@ -19,3 +19,7 @@ class IImageService(ABC):
     @abstractmethod
     def delete_image(self, image_id: int):
         pass
+
+    @abstractmethod
+    def search_image(self,string: str) -> List[Image]:
+        pass
