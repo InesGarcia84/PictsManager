@@ -2,6 +2,7 @@ from adapters.library_repository import LibraryRepository
 from adapters.user_repository import UserRepository
 from core.entities.library import Library
 from core.services.library.i_library_service import ILibraryService
+from typing import List
 
 class LibraryService(ILibraryService):
     def __init__(self, library_repository: LibraryRepository, user_repository: UserRepository):
@@ -27,3 +28,6 @@ class LibraryService(ILibraryService):
     
     def add_user_to_library(self, user_id: int, library_id: int):
         return self.library_repository.add_user_to_library(user_id, library_id)
+    
+    def search_library(self,string: str) -> List[Library]:
+        return self.library_repository.search_library(string)

@@ -29,6 +29,6 @@ class ImageRepository(IImageRepository):
         self.session.commit()
 
     def search_image(self,string: str)-> List[Image]: 
-        searched_items = self.session.query(Image).filter(Image.name.like("%string%")).all()
+        searched_items = self.session.query(Image).filter(Image.name.like(f"%{string}%")).all()
         return searched_items
     
