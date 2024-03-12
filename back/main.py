@@ -15,12 +15,12 @@ app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
 
 
 async def check_auth_user(request: Request):
-    if 'user' in request.session:   
-        return request.session['user']
-    else:
+    if 'session' in request.cookies:   
+        return request.cookies['session']
+    else:   
         raise HTTPException(status_code=401, detail="Unauthorized")
 # Include the user routes
-app.include_router(auth_router)
+app.include_router(auth_router) 
 app.include_router(user_router, prefix="/api", dependencies=[Depends(check_auth_user)])
 app.include_router(library_router, prefix="/api", dependencies=[Depends(check_auth_user)])
 app.include_router(image_router, prefix="/api", dependencies=[Depends(check_auth_user)])

@@ -53,7 +53,7 @@ async def auth(request: Request):
     try:
         token = await oauth.google.authorize_access_token(request)
     except OAuthError as e:
-        print(e)
+        raise e
     user = token.get('userinfo')
     if user:
         request.session['user'] = dict(user)
