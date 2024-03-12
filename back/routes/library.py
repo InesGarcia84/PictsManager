@@ -36,3 +36,7 @@ async def get_libraries_by_user(id: int):
 @library_router.post("/library/user/{user_id}/add/{library_id}")
 async def add_user_to_library(user_id: int, library_id: int):
     return library_service.add_user_to_library(user_id, library_id)
+
+@library_router.post("/library/search")
+async def search_library(string: str):
+    return library_service.search_library(string)
