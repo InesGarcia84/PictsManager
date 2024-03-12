@@ -19,3 +19,6 @@ class ImageService(IImageService):
     
     def delete_image(self, image_id: int):
         return self.image_repository.delete_image(image_id)
+
+    def search_image(self,string: str) -> List[Image]:
+        return self.image_repository.search_image(string)

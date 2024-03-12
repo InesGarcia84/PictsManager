@@ -28,3 +28,6 @@ class ILibraryService(ABC):
     def add_user_to_library(self, user_id: int, library_id: int):
         pass
 
+    @abstractmethod
+    def search_library(self,string: str) -> List[Library]:
+        pass

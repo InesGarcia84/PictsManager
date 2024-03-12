@@ -1,3 +1,4 @@
+from typing import List
 from core.entities.library import Library
 from core.entities.user_library import UserLibrary
 from ports.i_library_repository import ILibraryRepository
@@ -32,3 +33,7 @@ class LibraryRepository(ILibraryRepository):
     def get_libraries_by_user(self, user_id: int):
         libraries = self.session.query(Library).join(UserLibrary).filter(UserLibrary.user_id == user_id).all()
         return libraries
+    
+    def search_library(self,string: str)-> List[Library]: 
+        searched_items = self.session.query(Library).filter(Library.title.like(f"%{string}%")).all()
+        return searched_items

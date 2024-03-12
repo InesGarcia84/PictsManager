@@ -32,3 +32,7 @@ async def read_image(image_id: int):
 @image_router.get("/images/library/{library_id}")
 async def read_images(library_id: int):
     return image_service.get_all_images(library_id)
+
+@image_router.post("/image/search")
+async def search_image(string: str):
+    return image_service.search_image(string)

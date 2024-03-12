@@ -1,5 +1,6 @@
 # adapters/image_repository_impl.py
 from typing import List
+from sqlalchemy import literal
 from sqlalchemy.orm import Session
 from core.entities.image import Image
 from ports.i_image_repository import IImageRepository
@@ -26,4 +27,8 @@ class ImageRepository(IImageRepository):
         image = self.get_image_by_id(image_id)
         self.session.delete(image)
         self.session.commit()
+
+    def search_image(self,string: str)-> List[Image]: 
+        searched_items = self.session.query(Image).filter(Image.name.like(f"%{string}%")).all()
+        return searched_items
     
