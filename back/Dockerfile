@@ -11,4 +11,4 @@ COPY ./back /PictManager/
 RUN pip install -r /PictManager/requirements.txt
 
 # Command used to start the app using Uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
