@@ -13,9 +13,8 @@ class LibraryRepository(ILibraryRepository):
 
     def create_library(self, library: Library):
         try:
-            with self.session.begin():
-                self.session.add(library)
-                self.session.commit()
+            self.session.add(library)
+            self.session.commit()
         except:
             # Rollback the transaction in case of an exception
             self.session.rollback()
@@ -28,9 +27,8 @@ class LibraryRepository(ILibraryRepository):
     def add_user_to_library(self, user_id: int, library_id: int):
         userLibrary = UserLibrary(user_id=user_id, library_id=library_id)
         try:
-            with self.session.begin():
-                self.session.add(userLibrary)
-                self.session.commit()
+            self.session.add(userLibrary)
+            self.session.commit()
         except:
             # Rollback the transaction in case of an exception
             self.session.rollback()
@@ -49,9 +47,8 @@ class LibraryRepository(ILibraryRepository):
     def delete_library(self, library_id: int):
         library = self.session.query(Library).filter(Library.id == library_id).first()
         try:
-            with self.session.begin():
-                self.session.delete(library)
-                self.session.commit()
+            self.session.delete(library)
+            self.session.commit()
         except:
             # Rollback the transaction in case of an exception
             self.session.rollback()

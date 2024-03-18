@@ -8,12 +8,12 @@ class UserService(IUserService):
     def __init__(self):
         self.user_repository = UserRepository()
 
-    def create_user(self, user_info: str) -> User:
+    def create_user(self, id_google: str, name: str, email: str, picture: str) -> User:
 
-        google_auth_id=user_info["sub"]
-        username=user_info["name"]
-        email=user_info["email"]
-        picture=user_info["picture"]
+        google_auth_id= id_google
+        username=name
+        email=email
+        picture=picture
 
         # Check if user already exist
 

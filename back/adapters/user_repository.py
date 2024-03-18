@@ -14,9 +14,8 @@ class UserRepository(IUserRepository):
     def create_user(self, google_auth_id: str, username: str, email: str, picture: str) -> User:
         new_user = User(google_auth_id=google_auth_id, username=username, email=email, picture=picture)
         try: 
-            with self.session.begin():
-                self.session.add(new_user)
-                self.session.commit()
+            self.session.add(new_user)
+            self.session.commit()
         except:
             # Rollback the transaction in case of an exception
             self.session.rollback()
@@ -38,9 +37,8 @@ class UserRepository(IUserRepository):
     def delete_user(self, user_id: int):
         user = self.session.query(User).filter(User.id == user_id).first()
         try:
-            with self.session.begin():
-                self.session.delete(user)
-                self.session.commit()
+            self.session.delete(user)
+            self.session.commit()
         except:
             # Rollback the transaction in case of an exception
             self.session.rollback()

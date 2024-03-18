@@ -14,9 +14,8 @@ class ImageRepository(IImageRepository):
     def create_image(self, image: str, name: str, size: int, library_id) -> Image:
         new_image = Image(image=image, name=name, size=size, library_id=library_id)
         try:
-            with self.session.begin():
-                self.session.add(new_image)
-                self.session.commit()
+            self.session.add(new_image)
+            self.session.commit()
         except:
             # Rollback the transaction in case of an exception
             self.session.rollback()
@@ -36,9 +35,8 @@ class ImageRepository(IImageRepository):
     def delete_image(self, image_id: int):
         image = self.get_image_by_id(image_id)
         try:
-            with self.session.begin():
-                self.session.delete(image)
-                self.session.commit()
+            self.session.delete(image)
+            self.session.commit()
         except:
         # Rollback the transaction in case of an exception
             self.session.rollback()
