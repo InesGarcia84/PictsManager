@@ -1,13 +1,15 @@
 # adapters/user_repository_impl.py
 from typing import List
 from sqlalchemy.orm import Session
+from infrastructure.db import get_db
 from core.entities.user import User
 from ports.i_user_repository import IUserRepository
 
 class UserRepository(IUserRepository):
 
-    def __init__(self, session: Session):
-        self.session = session
+    def __init__(self):
+        db: Session = next(get_db())
+        self.session = db
 
     def create_user(self, google_auth_id: str, username: str, email: str, picture: str) -> User:
         new_user = User(google_auth_id=google_auth_id, username=username, email=email, picture=picture)

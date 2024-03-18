@@ -1,22 +1,14 @@
 import os
 from fastapi.responses import RedirectResponse
-from sqlalchemy.orm import Session
 from dotenv import load_dotenv
 from fastapi import APIRouter, Request, Response
-from adapters.user_repository import UserRepository
-from infrastructure.db import get_db
 from core.services.user.user_service import UserService
 from authlib.integrations.starlette_client import OAuth, OAuthError
 
 auth_router = APIRouter(tags=["Auth"])
 
 oauth = OAuth()
-
-# Use a session from the session factory
-db: Session = next(get_db())
-user_repository = UserRepository(db)
-
-user_service = UserService(user_repository)
+user_service = UserService()
 
 load_dotenv()  # Loads environment variables from .env file
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")

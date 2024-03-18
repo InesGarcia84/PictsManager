@@ -1,12 +1,15 @@
 from typing import List
+from infrastructure.db import get_db
+from sqlalchemy.orm import Session
 from core.entities.library import Library
 from core.entities.user_library import UserLibrary
 from ports.i_library_repository import ILibraryRepository
 
 
 class LibraryRepository(ILibraryRepository):
-    def __init__(self, session):
-        self.session = session
+    def __init__(self):
+        db: Session = next(get_db())
+        self.session = db
 
     def create_library(self, library: Library):
         self.session.add(library)

@@ -5,8 +5,8 @@ from core.services.image.i_image_service import IImageService
 from core.entities.image import Image
 
 class ImageService(IImageService):
-    def __init__(self, image_repository: ImageRepository):
-        self.image_repository = image_repository
+    def __init__(self):
+        self.image_repository = ImageRepository()
 
     def create_image(self, image: str, name: str, size: int, library_id: int) -> Image:
         return self.image_repository.create_image(image, name, size, library_id)

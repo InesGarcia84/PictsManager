@@ -1,14 +1,15 @@
 # adapters/image_repository_impl.py
 from typing import List
-from sqlalchemy import literal
 from sqlalchemy.orm import Session
+from infrastructure.db import get_db
 from core.entities.image import Image
 from ports.i_image_repository import IImageRepository
 
 class ImageRepository(IImageRepository):
 
-    def __init__(self, session: Session):
-        self.session = session
+    def __init__(self):
+        db: Session = next(get_db())
+        self.session = db
 
     def create_image(self, image: str, name: str, size: int, library_id) -> Image:
         new_image = Image(image=image, name=name, size=size, library_id=library_id)

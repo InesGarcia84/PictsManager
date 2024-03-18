@@ -5,8 +5,8 @@ from core.services.user.i_user_service import IUserService
 from core.entities.user import User
 
 class UserService(IUserService):
-    def __init__(self, user_repository: UserRepository):
-        self.user_repository = user_repository
+    def __init__(self):
+        self.user_repository = UserRepository()
 
     def create_user(self, user_info: str) -> User:
 
