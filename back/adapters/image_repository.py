@@ -7,8 +7,9 @@ from ports.i_image_repository import IImageRepository
 
 class ImageRepository(IImageRepository):
 
-    def __init__(self):
-        db: Session = next(get_db())
+    def __init__(self, db = None):
+        if db is None:
+            db: Session = next(get_db())
         self.session = db
 
     def create_image(self, image: str, name: str, size: int, library_id) -> Image:

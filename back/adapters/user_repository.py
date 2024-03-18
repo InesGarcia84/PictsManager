@@ -7,8 +7,9 @@ from ports.i_user_repository import IUserRepository
 
 class UserRepository(IUserRepository):
 
-    def __init__(self):
-        db: Session = next(get_db())
+    def __init__(self, db = None):
+        if db is None:
+            db: Session = next(get_db())
         self.session = db
 
     def create_user(self, google_auth_id: str, username: str, email: str, picture: str) -> User:
@@ -20,9 +21,6 @@ class UserRepository(IUserRepository):
             # Rollback the transaction in case of an exception
             self.session.rollback()
             raise
-        finally:
-            # Close the session
-            self.session.close()
         return self.get_user_by_google_id(google_auth_id)
     
     def get_user_by_id(self, user_id: int) -> User:

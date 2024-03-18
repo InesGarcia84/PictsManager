@@ -7,8 +7,9 @@ from ports.i_library_repository import ILibraryRepository
 
 
 class LibraryRepository(ILibraryRepository):
-    def __init__(self):
-        db: Session = next(get_db())
+    def __init__(self, db = None):
+        if db is None:
+            db: Session = next(get_db())
         self.session = db
 
     def create_library(self, library: Library):

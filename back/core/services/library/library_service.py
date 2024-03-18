@@ -1,17 +1,20 @@
 from adapters.library_repository import LibraryRepository
 from adapters.user_repository import UserRepository
+from infrastructure.db import get_db
 from core.entities.library import Library
+from sqlalchemy.orm import Session
 from core.services.library.i_library_service import ILibraryService
 from typing import List
 
 class LibraryService(ILibraryService):
     def __init__(self):
-        self.library_repository = LibraryRepository()
-        self.user_repository = UserRepository()
+        db : Session = next(get_db())
+        self.library_repository = LibraryRepository(db)
+        self.user_repository = UserRepository(db)
 
     def create_library(self, title: str, author: str, user_id: int):
-        users = self.user_repository.get_user_by_id(user_id)
-        lib = Library(title=title, author=author, users=[users])
+        user = self.user_repository.get_user_by_id(user_id)
+        lib = Library(title=title, author=author, users=[user])
         return self.library_repository.create_library(lib)
 
     def get_library_by_id(self, library_id: int):
