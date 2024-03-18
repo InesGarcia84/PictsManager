@@ -30,27 +30,16 @@ oauth.register(
 def index(request: Request):
     user = request.session.get('user')
     if user:
-        return Response(f'user: {user}')
-    else:
-        return RedirectResponse('/login')
+        return Response(f'user: {user}')   
 
 
-@auth_router.get("/login")
-async def login(request: Request):
-    url = request.url_for('auth')
-    return await oauth.google.authorize_redirect(request, url)
-
-@auth_router.get('/auth')
-async def auth(request: Request):
-    try:
-        token = await oauth.google.authorize_access_token(request)
-    except OAuthError as e:
-        raise e
-    user = token.get('userinfo')
-    if user:
-        request.session['user'] = dict(user)
-    user_service.create_user(user)
-    return Response(f'token: {token}')
+@auth_router.post("/login")
+async def login(request: Request, token_id: str, google_id: str, email: str, name: str, picture: str):
+    user = user_service.create_user(google_id, email, name, picture)
+    request.session['user'] = {'id': user.id, 'google_auth': user.google_auth_id,'email':user.email, 'username': user.username, 'picture': user.picture}
+    request.cookies['session'] = token_id
+    user_response = request.session.get('user')
+    return Response(f'user: {user_response}') 
 
 @auth_router.get('/logout')
 def logout(request: Request):
