@@ -5,9 +5,9 @@ from core.services.library.i_library_service import ILibraryService
 from typing import List
 
 class LibraryService(ILibraryService):
-    def __init__(self, library_repository: LibraryRepository, user_repository: UserRepository):
-        self.library_repository = library_repository
-        self.user_repository = user_repository
+    def __init__(self):
+        self.library_repository = LibraryRepository()
+        self.user_repository = UserRepository()
 
     def create_library(self, title: str, author: str, user_id: int):
         users = self.user_repository.get_user_by_id(user_id)

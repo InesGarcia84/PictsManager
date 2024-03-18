@@ -1,17 +1,9 @@
 from fastapi import APIRouter
-from adapters.library_repository import LibraryRepository
-from sqlalchemy.orm import Session
-from adapters.user_repository import UserRepository
 from core.services.library.library_service import LibraryService
-from infrastructure.db import get_db
 
 library_router = APIRouter()
 
-# Db session
-db: Session = next(get_db())
-library_repository = LibraryRepository(db)
-user_repository = UserRepository(db)
-library_service = LibraryService(library_repository, user_repository)
+library_service = LibraryService()
 
 @library_router.get("/library")
 async def get_all_libraries():

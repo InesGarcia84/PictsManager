@@ -1,17 +1,12 @@
 # routes/images.py
 from fastapi import APIRouter, HTTPException
-from sqlalchemy.orm import Session
-from infrastructure.db import get_db
 from core.services.image.image_service import ImageService
-from adapters.image_repository import ImageRepository
 
 image_router = APIRouter()
 
 # Use a session from the session factory
-db: Session = next(get_db())
-image_repository = ImageRepository(db)
 
-image_service = ImageService(image_repository)
+image_service = ImageService()
 
 @image_router.post("/image/")
 async def create_image(image: str, name: str, size: int, library_id: int):
