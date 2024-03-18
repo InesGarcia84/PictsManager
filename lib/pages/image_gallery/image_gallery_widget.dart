@@ -89,6 +89,9 @@ class _ImageGalleryWidgetState extends State<ImageGalleryWidget> {
                 setState(() {});
                 return;
               }
+            } else {
+              setState(() {});
+              return;
             }
 
             String? name = await showModalBottomSheet(

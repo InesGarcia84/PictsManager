@@ -1,3 +1,7 @@
+import 'package:picts_manager/utils/webview.dart';
+import 'package:uni_links/uni_links.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -10,6 +14,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'auth2_login_model.dart';
 export 'auth2_login_model.dart';
+import 'package:flutter_web_auth/flutter_web_auth.dart';
+
+import 'dart:convert' show jsonDecode;
+import 'package:http/http.dart' as http;
 
 class Auth2LoginWidget extends StatefulWidget {
   const Auth2LoginWidget({super.key});
@@ -40,30 +48,39 @@ class _Auth2LoginWidgetState extends State<Auth2LoginWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 300.ms,
-          begin: Offset(0.0, 140.0),
-          end: Offset(0.0, 0.0),
+          begin: const Offset(0.0, 140.0),
+          end: const Offset(0.0, 0.0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 300.ms,
-          begin: Offset(0.9, 0.9),
-          end: Offset(1.0, 1.0),
+          begin: const Offset(0.9, 0.9),
+          end: const Offset(1.0, 1.0),
         ),
         TiltEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 300.ms,
-          begin: Offset(-0.349, 0),
-          end: Offset(0, 0),
+          begin: const Offset(-0.349, 0),
+          end: const Offset(0, 0),
         ),
       ],
     ),
   };
 
+  Future<void> initUniLinks() async {
+    linkStream.listen((String? link) {
+      // Extract authentication code from the link and use it to continue the auth process
+    }, onError: (err) {
+      // Handle error
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    initUniLinks();
     _model = createModel(context, () => Auth2LoginModel());
   }
 
@@ -92,31 +109,32 @@ class _Auth2LoginWidgetState extends State<Auth2LoginWidget>
                 FlutterFlowTheme.of(context).tertiary
               ],
               stops: [0.0, 1.0],
-              begin: AlignmentDirectional(0.87, -1.0),
-              end: AlignmentDirectional(-0.87, 1.0),
+              begin: const AlignmentDirectional(0.87, -1.0),
+              end: const AlignmentDirectional(-0.87, 1.0),
             ),
           ),
-          alignment: AlignmentDirectional(0.0, -1.0),
+          alignment: const AlignmentDirectional(0.0, -1.0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 70.0, 0.0, 32.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      0.0, 70.0, 0.0, 32.0),
                   child: Container(
                     width: 200.0,
                     height: 70.0,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16.0),
                     ),
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 12.0, 0.0),
                           child: Icon(
                             Icons.flourescent_rounded,
@@ -138,16 +156,16 @@ class _Auth2LoginWidgetState extends State<Auth2LoginWidget>
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Container(
                     width: double.infinity,
-                    constraints: BoxConstraints(
+                    constraints: const BoxConstraints(
                       maxWidth: 570.0,
                     ),
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       boxShadow: [
-                        BoxShadow(
+                        const BoxShadow(
                           blurRadius: 4.0,
                           color: Color(0x33000000),
                           offset: Offset(0.0, 2.0),
@@ -156,9 +174,9 @@ class _Auth2LoginWidgetState extends State<Auth2LoginWidget>
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     child: Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Padding(
-                        padding: EdgeInsets.all(32.0),
+                        padding: const EdgeInsets.all(32.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,7 +187,7 @@ class _Auth2LoginWidgetState extends State<Auth2LoginWidget>
                               style: FlutterFlowTheme.of(context).displaySmall,
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 8.0, 0.0, 24.0),
                               child: Text(
                                 'Fill out the information below in order to access your account.',
@@ -178,24 +196,31 @@ class _Auth2LoginWidgetState extends State<Auth2LoginWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 16.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  context.pushNamed('Gallery');
+                                  final result =
+                                      await FlutterWebAuth.authenticate(
+                                    url:
+                                        "https://fastapi-on-koyeb-pictmanager.koyeb.app/",
+                                    callbackUrlScheme: "foobar",
+                                  );
+                                  print(result);
                                 },
                                 text: 'Continue with Google',
-                                icon: FaIcon(
+                                icon: const FaIcon(
                                   FontAwesomeIcons.google,
                                   size: 20.0,
                                 ),
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 44.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding:
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   textStyle: FlutterFlowTheme.of(context)
