@@ -15,6 +15,7 @@ class ImageRepository(IImageRepository):
         new_image = Image(image=image, name=name, size=size, library_id=library_id)
         self.session.add(new_image)
         self.session.commit()
+        self.session.refresh(new_image)
         return new_image
     
     def get_image_by_id(self, image_id: int) -> Image:
@@ -28,6 +29,7 @@ class ImageRepository(IImageRepository):
         image = self.get_image_by_id(image_id)
         self.session.delete(image)
         self.session.commit()
+        self.session.refresh(image)
 
     def search_image(self,string: str)-> List[Image]: 
         searched_items = self.session.query(Image).filter(Image.name.like(f"%{string}%")).all()

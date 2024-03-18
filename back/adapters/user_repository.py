@@ -15,6 +15,7 @@ class UserRepository(IUserRepository):
         new_user = User(google_auth_id=google_auth_id, username=username, email=email, picture=picture)
         self.session.add(new_user)
         self.session.commit()
+        self.session.refresh(new_user)
         return self.get_user_by_google_id(google_auth_id)
     
     def get_user_by_id(self, user_id: int) -> User:
@@ -30,3 +31,4 @@ class UserRepository(IUserRepository):
         user = self.session.query(User).filter(User.id == user_id).first()
         self.session.delete(user)
         self.session.commit()
+        self.session.refresh(user)

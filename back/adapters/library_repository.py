@@ -14,12 +14,14 @@ class LibraryRepository(ILibraryRepository):
     def create_library(self, library: Library):
         self.session.add(library)
         self.session.commit()
+        self.session.refresh(library)
         return library
 
     def add_user_to_library(self, user_id: int, library_id: int):
         userLibrary = UserLibrary(user_id=user_id, library_id=library_id)
         self.session.add(userLibrary)
         self.session.commit()
+        self.session.refresh(userLibrary)
         return userLibrary
     
     def get_library_by_id(self, library_id: int):
@@ -32,6 +34,7 @@ class LibraryRepository(ILibraryRepository):
         library = self.session.query(Library).filter(Library.id == library_id).first()
         self.session.delete(library)
         self.session.commit()
+        self.session.refresh(library)
     
     def get_libraries_by_user(self, user_id: int):
         libraries = self.session.query(Library).join(UserLibrary).filter(UserLibrary.user_id == user_id).all()
