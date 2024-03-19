@@ -35,7 +35,7 @@ def index(request: Request):
 
 @auth_router.post("/login")
 async def login(request: Request, token_id: str, google_id: str, email: str, name: str, picture: str):
-    user = user_service.create_user(google_id, email, name, picture)
+    user = user_service.create_user(google_id,name, email, picture)
     request.session['user'] = {'id': user.id, 'google_auth': user.google_auth_id,'email':user.email, 'username': user.username, 'picture': user.picture}
     request.cookies['session'] = token_id
     user_response = request.session.get('user')
