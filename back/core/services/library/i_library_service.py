@@ -31,3 +31,8 @@ class ILibraryService(ABC):
     @abstractmethod
     def search_library(self,string: str) -> List[Library]:
         pass
+
+    @abstractmethod
+    def check_if_user_lib_exist(self,user_id: int, library_id: int):
+        pass
+

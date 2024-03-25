@@ -1,5 +1,6 @@
 from typing import List
 from infrastructure.db import get_db
+from sqlalchemy import and_
 from sqlalchemy.orm import Session
 from core.entities.library import Library
 from core.entities.user_library import UserLibrary
@@ -65,3 +66,8 @@ class LibraryRepository(ILibraryRepository):
     def search_library(self,string: str)-> List[Library]: 
         searched_items = self.session.query(Library).filter(Library.title.like(f"%{string}%")).all()
         return searched_items
+    
+    def check_if_user_lib_exist(self, user_id: int, library_id: int):
+        searched_lib = self.session.query(Library).join(UserLibrary).filter(and_(UserLibrary.library_id == library_id, UserLibrary.user_id == user_id)).first()
+        return searched_lib
+        

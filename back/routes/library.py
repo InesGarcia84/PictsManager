@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from core.services.library.library_service import LibraryService
 
 library_router = APIRouter()
@@ -27,6 +27,9 @@ async def get_libraries_by_user(id: int):
 
 @library_router.post("/library/user/{user_id}/add/{library_id}")
 async def add_user_to_library(user_id: int, library_id: int):
+    library = library_service.check_if_user_lib_exist(user_id,library_id)
+    if library != None:
+        raise HTTPException(status_code=409, detail="Nope! Library is already added for your account")
     return library_service.add_user_to_library(user_id, library_id)
 
 @library_router.post("/library/search")
