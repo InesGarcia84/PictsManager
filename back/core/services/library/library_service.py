@@ -34,3 +34,6 @@ class LibraryService(ILibraryService):
     
     def search_library(self,string: str) -> List[Library]:
         return self.library_repository.search_library(string)
+    
+    def check_if_user_lib_exist(self, user_id: int, library_id: int):
+        return self.library_repository.check_if_user_lib_exist(user_id,library_id)
