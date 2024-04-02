@@ -1,5 +1,6 @@
 # routes/images.py
 from fastapi import APIRouter, HTTPException
+from core.schemas.image import ImageSchema
 from core.services.image.image_service import ImageService
 
 image_router = APIRouter()
@@ -9,8 +10,8 @@ image_router = APIRouter()
 image_service = ImageService()
 
 @image_router.post("/image/")
-async def create_image(image: str, name: str, size: int, library_id: int):
-    return image_service.create_image(image, name, size, library_id)
+async def create_image(image: ImageSchema):
+    return image_service.create_image(image.image, image.name, image.size, image.library_id)
 
 @image_router.delete("/image/{image_id}")
 async def delete_image(image_id: int):
