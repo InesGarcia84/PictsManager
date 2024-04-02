@@ -52,4 +52,6 @@ jobs:
 
     - name: Run tests
       run: |
-        cd back/ && pytest            
+        cd back/ && pytest
+      env:
+        DATABASE_URL: postgresql://admin:admin@localhost:5432/db             
