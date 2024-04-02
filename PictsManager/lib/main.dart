@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:picts_manager/firebase_options.dart';
 
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
@@ -15,7 +16,9 @@ void main() async {
   usePathUrlStrategy();
 
   await FlutterFlowTheme.initialize();
-
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(MyApp());
 }
 

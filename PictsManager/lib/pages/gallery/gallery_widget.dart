@@ -1,5 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
+import 'package:share_plus/share_plus.dart';
+import 'package:tuple/tuple.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/imagename_widget.dart';
@@ -51,7 +56,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            String? name = await showModalBottomSheet(
+            Tuple2<String, bool>? name = await showModalBottomSheet(
               isScrollControlled: true,
               backgroundColor: Colors.transparent,
               enableDrag: false,
@@ -69,42 +74,80 @@ class _GalleryWidgetState extends State<GalleryWidget> {
               },
             );
             if (name == null) return;
-            _model.apiResult32b = await UploadNewLibraryCall.call(
-              token: 'token',
-              name: name,
-            );
-            if ((_model.apiResult32b?.succeeded ?? true)) {
-              await showDialog(
-                context: context,
-                builder: (alertDialogContext) {
-                  return AlertDialog(
-                    title: const Text('Uploaded'),
-                    content: const Text('New library created'),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(alertDialogContext),
-                        child: const Text('Ok'),
-                      ),
-                    ],
-                  );
-                },
+            if (name.item2) {
+              _model.apiResult32b = await UploadNewLibraryCall.call(
+                name: name.item1,
               );
+              if ((_model.apiResult32b?.succeeded ?? true)) {
+                await showDialog(
+                  context: context,
+                  builder: (alertDialogContext) {
+                    return AlertDialog(
+                      title: const Text('Uploaded'),
+                      content: const Text('New library created'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(alertDialogContext),
+                          child: const Text('Ok'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              } else {
+                await showDialog(
+                  context: context,
+                  builder: (alertDialogContext) {
+                    return AlertDialog(
+                      title: const Text('Error'),
+                      content: Text('Unable to create library: ${name.item1}'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(alertDialogContext),
+                          child: const Text('Ok'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
             } else {
-              await showDialog(
-                context: context,
-                builder: (alertDialogContext) {
-                  return AlertDialog(
-                    title: const Text('Error'),
-                    content: Text('Unable to create library: $name'),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(alertDialogContext),
-                        child: const Text('Ok'),
-                      ),
-                    ],
-                  );
-                },
+              _model.apiResult32b = await LinkLibraryCall.call(
+                libraryId: name.item1,
               );
+              if ((_model.apiResult32b?.succeeded ?? true)) {
+                await showDialog(
+                  context: context,
+                  builder: (alertDialogContext) {
+                    return AlertDialog(
+                      title: const Text('Uploaded'),
+                      content: const Text('New library created'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(alertDialogContext),
+                          child: const Text('Ok'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              } else {
+                await showDialog(
+                  context: context,
+                  builder: (alertDialogContext) {
+                    return AlertDialog(
+                      title: const Text('Error'),
+                      content: Text('Unable to create library: ${name.item1}'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(alertDialogContext),
+                          child: const Text('Ok'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
             }
 
             setState(() {});
@@ -184,60 +227,22 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                               ),
                             );
                           }
-                          final wrapGetLibrariesResponse = snapshot.data!;
+                          List<Map<String, dynamic>> librariesResponse =
+                              (jsonDecode(snapshot.data!.response?.body ?? "")
+                                      as List<dynamic>)
+                                  .map(
+                                    (e) => e as Map<String, dynamic>,
+                                  )
+                                  .toList();
                           return Builder(
                             builder: (context) {
-                              final list = [
-                                LibraryStruct(
-                                  name: 'Library 1',
-                                  id: 1,
-                                  imageIds: [
-                                    1,
-                                    2,
-                                    3,
-                                  ],
-                                ),
-                                LibraryStruct(
-                                    name: 'Library 2',
-                                    id: 2,
-                                    imageIds: [
-                                      4,
-                                      5,
-                                      6,
-                                      7,
-                                      8,
-                                    ]),
-                                LibraryStruct(
-                                  name: 'Library 3',
-                                  id: 3,
-                                  imageIds: [
-                                    9,
-                                    10,
-                                    11,
-                                    12,
-                                    13,
-                                  ],
-                                ),
-                                LibraryStruct(
-                                  name: 'Library 4',
-                                  id: 4,
-                                  imageIds: [
-                                    14,
-                                    15,
-                                    16,
-                                    17,
-                                    18,
-                                  ],
-                                ),
-                              ];
-                              // (wrapGetLibrariesResponse.jsonBody
-                              //             .toList()
-                              //             .map<LibraryStruct?>(
-                              //                 LibraryStruct.maybeFromMap)
-                              //             .toList() as Iterable<LibraryStruct?>)
-                              //         .withoutNulls
-                              //         ?.toList() ??
-                              //     [];
+                              final list = (librariesResponse
+                                          .map<LibraryStruct?>(
+                                              LibraryStruct.maybeFromMap)
+                                          .toList() as Iterable<LibraryStruct?>)
+                                      .withoutNulls
+                                      ?.toList() ??
+                                  [];
                               return Wrap(
                                 spacing: 0.0,
                                 runSpacing: 0.0,
@@ -263,11 +268,6 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                                         context.pushNamed(
                                           'ImageGallery',
                                           queryParameters: {
-                                            'imageIds': serializeParam(
-                                              listItem.imageIds,
-                                              ParamType.int,
-                                              true,
-                                            ),
                                             'name': serializeParam(
                                               listItem.name,
                                               ParamType.String,
@@ -281,7 +281,6 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                                       },
                                       child: Container(
                                         width: 150.0,
-                                        height: 150.0,
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
@@ -294,29 +293,92 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                MainAxisAlignment.start,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                                CrossAxisAlignment.end,
                                             children: [
-                                              FaIcon(
-                                                FontAwesomeIcons.folder,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                size: 48.0,
+                                              const SizedBox(
+                                                height: 20,
                                               ),
-                                              Text(
-                                                listItem.name,
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Readex Pro',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
+                                              Center(
+                                                child: FaIcon(
+                                                  FontAwesomeIcons.folder,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  size: 48.0,
+                                                ),
+                                              ),
+                                              Center(
+                                                child: Text(
+                                                  listItem.name,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                      ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 20,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(10.0),
+                                                      ),
+                                                      color: Colors.red
+                                                          .withOpacity(0.7),
                                                     ),
+                                                    child: IconButton(
+                                                      onPressed: () async {
+                                                        await DeleteLibrary.call(
+                                                            libraryId: listItem
+                                                                .id
+                                                                .toString());
+                                                        setState(() {});
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.delete,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(10.0),
+                                                      ),
+                                                      color: Colors.blue
+                                                          .withOpacity(0.7),
+                                                    ),
+                                                    child: IconButton(
+                                                      onPressed: () async {
+                                                        Share.share(
+                                                            '${listItem.id}',
+                                                            subject:
+                                                                "Share this gallery code with the other user");
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.share,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),

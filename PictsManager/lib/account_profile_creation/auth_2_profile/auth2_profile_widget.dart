@@ -1,3 +1,5 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -40,8 +42,8 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 400.ms,
-          begin: Offset(3.0, 3.0),
-          end: Offset(1.0, 1.0),
+          begin: const Offset(3.0, 3.0),
+          end: const Offset(1.0, 1.0),
         ),
       ],
     ),
@@ -60,8 +62,8 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
           curve: Curves.easeInOut,
           delay: 400.ms,
           duration: 600.ms,
-          begin: Offset(0.0, 60.0),
-          end: Offset(0.0, 0.0),
+          begin: const Offset(0.0, 60.0),
+          end: const Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -90,10 +92,10 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: Align(
-          alignment: AlignmentDirectional(0.0, -1.0),
+          alignment: const AlignmentDirectional(0.0, -1.0),
           child: Container(
             width: double.infinity,
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxWidth: 770.0,
             ),
             decoration: BoxDecoration(
@@ -108,8 +110,8 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                   child: Stack(
                     children: [
                       Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 16.0),
                         child: Container(
                           width: double.infinity,
                           height: 140.0,
@@ -121,8 +123,8 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                                 FlutterFlowTheme.of(context).tertiary
                               ],
                               stops: [0.0, 0.5, 1.0],
-                              begin: AlignmentDirectional(-1.0, -1.0),
-                              end: AlignmentDirectional(1.0, 1.0),
+                              begin: const AlignmentDirectional(-1.0, -1.0),
+                              end: const AlignmentDirectional(1.0, 1.0),
                             ),
                           ),
                           child: Container(
@@ -131,19 +133,19 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
-                                  Color(0x00FFFFFF),
+                                  const Color(0x00FFFFFF),
                                   FlutterFlowTheme.of(context)
                                       .secondaryBackground
                                 ],
                                 stops: [0.0, 1.0],
-                                begin: AlignmentDirectional(0.0, -1.0),
-                                end: AlignmentDirectional(0, 1.0),
+                                begin: const AlignmentDirectional(0.0, -1.0),
+                                end: const AlignmentDirectional(0, 1.0),
                               ),
                             ),
                             child: Align(
-                              alignment: AlignmentDirectional(-1.0, -1.0),
+                              alignment: const AlignmentDirectional(-1.0, -1.0),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10.0, 30.0, 0.0, 0.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
@@ -158,11 +160,13 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                                   ),
                                   options: FFButtonOptions(
                                     height: 40.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: Color(0x00FFFFFF),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 0.0),
+                                    iconPadding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 0.0),
+                                    color: const Color(0x00FFFFFF),
                                     textStyle: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
@@ -170,7 +174,7 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                                           color: Colors.white,
                                         ),
                                     elevation: 0.0,
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),
@@ -184,9 +188,9 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                             animationsMap['containerOnPageLoadAnimation']!),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(-1.0, 1.0),
+                        alignment: const AlignmentDirectional(-1.0, 1.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 0.0, 0.0),
                           child: Container(
                             width: 90.0,
@@ -200,17 +204,33 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                               ),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.all(4.0),
+                              padding: const EdgeInsets.all(4.0),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50.0),
-                                child: CachedNetworkImage(
-                                  fadeInDuration: Duration(milliseconds: 500),
-                                  fadeOutDuration: Duration(milliseconds: 500),
-                                  imageUrl: "https://picsum.photos/seed/951/600",
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.cover,
-                                ),
+                                child: FutureBuilder<String?>(
+                                    future: const FlutterSecureStorage()
+                                        .read(key: "picture"),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return Image.asset(
+                                          'assets/images/app_launcher_icon.png',
+                                          width: 100.0,
+                                          height: 100.0,
+                                          fit: BoxFit.cover,
+                                        );
+                                      }
+                                      return CachedNetworkImage(
+                                        fadeInDuration:
+                                            const Duration(milliseconds: 500),
+                                        fadeOutDuration:
+                                            const Duration(milliseconds: 500),
+                                        imageUrl: snapshot.data ??
+                                            'assets/images/app_launcher_icon.png',
+                                        width: 100.0,
+                                        height: 100.0,
+                                        fit: BoxFit.cover,
+                                      );
+                                    }),
                               ),
                             ),
                           ),
@@ -219,43 +239,58 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 0.0, 0.0),
-                  child: Text(
-                    "currentUserDisplayName",
-                    style: FlutterFlowTheme.of(context).displaySmall,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 4.0, 0.0, 16.0),
-                  child: Text(
-                    valueOrDefault<String>(
-                      "currentUserEmail",
-                      'andrew@domainname.com',
-                    ),
-                    style: FlutterFlowTheme.of(context).labelLarge.override(
-                          fontFamily: 'Readex Pro',
-                          color: FlutterFlowTheme.of(context).primary,
+                FutureBuilder<String?>(
+                    future: const FlutterSecureStorage().read(key: "username"),
+                    builder: (context, snapshot) {
+                      return Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            24.0, 12.0, 0.0, 0.0),
+                        child: Text(
+                          valueOrDefault<String>(
+                            snapshot.data,
+                            '',
+                          ),
+                          style: FlutterFlowTheme.of(context).displaySmall,
                         ),
-                  ),
-                ),
+                      );
+                    }),
+                FutureBuilder<String?>(
+                    future: const FlutterSecureStorage().read(key: "email"),
+                    builder: (context, snapshot) {
+                      return Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            24.0, 4.0, 0.0, 16.0),
+                        child: Text(
+                          valueOrDefault<String>(
+                            snapshot.data,
+                            '',
+                          ),
+                          style:
+                              FlutterFlowTheme.of(context).labelLarge.override(
+                                    fontFamily: 'Readex Pro',
+                                    color: FlutterFlowTheme.of(context).primary,
+                                  ),
+                        ),
+                      );
+                    }),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 16.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      24.0, 16.0, 0.0, 0.0),
                   child: Text(
                     'App Settings',
                     style: FlutterFlowTheme.of(context).labelMedium,
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      16.0, 12.0, 16.0, 0.0),
                   child: Container(
                     width: double.infinity,
                     height: 60.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       boxShadow: [
-                        BoxShadow(
+                        const BoxShadow(
                           blurRadius: 3.0,
                           color: Color(0x33000000),
                           offset: Offset(0.0, 1.0),
@@ -269,7 +304,7 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -279,7 +314,7 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                             size: 24.0,
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 12.0, 0.0, 0.0, 0.0),
                             child: Text(
                               'Support',
@@ -288,7 +323,7 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                           ),
                           Expanded(
                             child: Align(
-                              alignment: AlignmentDirectional(0.9, 0.0),
+                              alignment: const AlignmentDirectional(0.9, 0.0),
                               child: Icon(
                                 Icons.arrow_forward_ios,
                                 color:
@@ -303,15 +338,15 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      16.0, 12.0, 16.0, 0.0),
                   child: Container(
                     width: double.infinity,
                     height: 60.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       boxShadow: [
-                        BoxShadow(
+                        const BoxShadow(
                           blurRadius: 3.0,
                           color: Color(0x33000000),
                           offset: Offset(0.0, 1.0),
@@ -325,7 +360,7 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -335,7 +370,7 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                             size: 24.0,
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 12.0, 0.0, 0.0, 0.0),
                             child: Text(
                               'Terms of Service',
@@ -344,7 +379,7 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                           ),
                           Expanded(
                             child: Align(
-                              alignment: AlignmentDirectional(0.9, 0.0),
+                              alignment: const AlignmentDirectional(0.9, 0.0),
                               child: Icon(
                                 Icons.arrow_forward_ios,
                                 color:
@@ -359,10 +394,10 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 16.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         context.pushNamed('auth_2_Login');
@@ -371,10 +406,10 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                       options: FFButtonOptions(
                         width: 150.0,
                         height: 44.0,
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primaryBackground,
                         textStyle: FlutterFlowTheme.of(context).bodyLarge,
                         elevation: 0.0,

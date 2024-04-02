@@ -6,11 +6,34 @@
 	<dict>
 		<key>Info.plist</key>
 		<data>
-		HqeT2nVChY+8MPk6cZyKcikVQXg=
+		EXm5Z0UR6Al70kG3ZyIJbcaKVGc=
+		</data>
+		<key>openssl_grpc.bundle/Info.plist</key>
+		<data>
+		xpHMdRr90DqsmDSedpv4fEPVAXA=
+		</data>
+		<key>openssl_grpc.bundle/PrivacyInfo.xcprivacy</key>
+		<data>
+		U7WM6H59FffP9Htm/es+F6Fe4q4=
 		</data>
 	</dict>
 	<key>files2</key>
-	<dict/>
+	<dict>
+		<key>openssl_grpc.bundle/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			90DyBtn6AddTNn4jyWGOqsX30pjoHnNUymhkM8wvT+4=
+			</data>
+		</dict>
+		<key>openssl_grpc.bundle/PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			SMwLNyeKt9zx4V4Bagi8Dg1kPZyuLQYcTZQlPy1SyIo=
+			</data>
+		</dict>
+	</dict>
 	<key>rules</key>
 	<dict>
 		<key>^.*</key>

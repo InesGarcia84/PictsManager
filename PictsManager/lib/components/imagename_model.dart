@@ -13,6 +13,10 @@ class ImagenameModel extends FlutterFlowModel<ImagenameWidget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNodeCode;
+  TextEditingController? textControllerCode;
+  String? Function(BuildContext, String?)? textControllerValidatorCode;
 
   /// Initialization and disposal methods.
 
