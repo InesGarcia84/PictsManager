@@ -2,7 +2,7 @@ name: FastAPI CI
 
 on:
   push:
-    branches: [ "devops" ]
+    branches: [ "develop" ]
 
   pull_request:
     branches: [ "develop" ]
