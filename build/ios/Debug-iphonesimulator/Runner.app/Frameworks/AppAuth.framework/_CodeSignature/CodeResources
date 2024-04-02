@@ -4,13 +4,36 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>AppAuthCore_Privacy.bundle/Info.plist</key>
+		<data>
+		hQi0O2YjNsSQgBERLwoUp7qxFo4=
+		</data>
+		<key>AppAuthCore_Privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<data>
+		MCDRptixYfA+qALBX9b4uxq3rwo=
+		</data>
 		<key>Info.plist</key>
 		<data>
-		9VWA6P9gckw4Yu7KEY213QqtYHE=
+		8oD5XymllFJVIkBaFmvWexyM6bU=
 		</data>
 	</dict>
 	<key>files2</key>
-	<dict/>
+	<dict>
+		<key>AppAuthCore_Privacy.bundle/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			JCGMHoQM1dHlLcDUuakpG7/ZFYuXF4zCHpzMPHzvgVY=
+			</data>
+		</dict>
+		<key>AppAuthCore_Privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Wt6WL6rqHt273QbEz4qHLOxVT2TFWgDgATYATTeOHO0=
+			</data>
+		</dict>
+	</dict>
 	<key>rules</key>
 	<dict>
 		<key>^.*</key>

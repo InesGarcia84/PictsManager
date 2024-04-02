@@ -1,0 +1,13 @@
+com.linusu.flutter_web_auth-jetified-window-1.0.0-beta04-0 /Users/richard.depierre/.gradle/caches/transforms-3/3547045148f823ae82ba5f00da62432e/transformed/jetified-window-1.0.0-beta04/res
+com.linusu.flutter_web_auth-core-1.6.0-1 /Users/richard.depierre/.gradle/caches/transforms-3/448e12895481b74f12aa96a40a56e1d8/transformed/core-1.6.0/res
+com.linusu.flutter_web_auth-browser-1.3.0-2 /Users/richard.depierre/.gradle/caches/transforms-3/d0f11bdec5ad6681ab621b1711e6463a/transformed/browser-1.3.0/res
+com.linusu.flutter_web_auth-jetified-annotation-experimental-1.1.0-3 /Users/richard.depierre/.gradle/caches/transforms-3/d5b68f2b2b74dc022302f312e278ba97/transformed/jetified-annotation-experimental-1.1.0/res
+com.linusu.flutter_web_auth-jetified-window-java-1.0.0-beta04-4 /Users/richard.depierre/.gradle/caches/transforms-3/e35e8dc727b74800fd8b576809d7e083/transformed/jetified-window-java-1.0.0-beta04/res
+com.linusu.flutter_web_auth-main-5 /Users/richard.depierre/.pub-cache/hosted/pub.dev/flutter_web_auth-0.5.0/android/src/main/res
+com.linusu.flutter_web_auth-release-6 /Users/richard.depierre/.pub-cache/hosted/pub.dev/flutter_web_auth-0.5.0/android/src/release/res
+com.linusu.flutter_web_auth-pngs-7 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_web_auth/generated/res/pngs/release
+com.linusu.flutter_web_auth-resValues-8 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_web_auth/generated/res/resValues/release
+com.linusu.flutter_web_auth-rs-9 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_web_auth/generated/res/rs/release
+com.linusu.flutter_web_auth-mergeReleaseResources-10 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_web_auth/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.linusu.flutter_web_auth-mergeReleaseResources-11 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_web_auth/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.linusu.flutter_web_auth-merged_res-12 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_web_auth/intermediates/merged_res/release

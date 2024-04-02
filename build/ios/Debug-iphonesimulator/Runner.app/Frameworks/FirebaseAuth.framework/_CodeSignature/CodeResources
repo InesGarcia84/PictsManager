@@ -4,13 +4,36 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>FirebaseAuth_Privacy.bundle/Info.plist</key>
+		<data>
+		cw7vw5qxf0PQSkFzLHCg9X7zJX4=
+		</data>
+		<key>FirebaseAuth_Privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<data>
+		8cQ/rSS7XR8ohTuSAR27mQb1wiU=
+		</data>
 		<key>Info.plist</key>
 		<data>
-		103AHTPssi0WuAdSFES3Cfe1e6o=
+		6rX5ph/YUC1RXRmtUMEEDiO5vFA=
 		</data>
 	</dict>
 	<key>files2</key>
-	<dict/>
+	<dict>
+		<key>FirebaseAuth_Privacy.bundle/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			PLDSURpRd+sd+iQpBx8o71fejLM9dtHaukDgq8zQsJE=
+			</data>
+		</dict>
+		<key>FirebaseAuth_Privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			BMFi6vpJss7QZjIxqJzJ9Xk1BsgCtoSGcZtdoGCK79U=
+			</data>
+		</dict>
+	</dict>
 	<key>rules</key>
 	<dict>
 		<key>^.*</key>

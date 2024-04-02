@@ -1,23 +1,26 @@
-import 'package:picts_manager/utils/webview.dart';
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:developer';
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_web_auth/flutter_web_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:picts_manager/auth/firebase_auth/firebase_auth_manager.dart';
 import 'package:uni_links/uni_links.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'auth2_login_model.dart';
 export 'auth2_login_model.dart';
-import 'package:flutter_web_auth/flutter_web_auth.dart';
-
-import 'dart:convert' show jsonDecode;
-import 'package:http/http.dart' as http;
 
 class Auth2LoginWidget extends StatefulWidget {
   const Auth2LoginWidget({super.key});
@@ -108,7 +111,7 @@ class _Auth2LoginWidgetState extends State<Auth2LoginWidget>
                 FlutterFlowTheme.of(context).primary,
                 FlutterFlowTheme.of(context).tertiary
               ],
-              stops: [0.0, 1.0],
+              stops: const [0.0, 1.0],
               begin: const AlignmentDirectional(0.87, -1.0),
               end: const AlignmentDirectional(-0.87, 1.0),
             ),
@@ -164,8 +167,8 @@ class _Auth2LoginWidgetState extends State<Auth2LoginWidget>
                     ),
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
-                      boxShadow: [
-                        const BoxShadow(
+                      boxShadow: const [
+                        BoxShadow(
                           blurRadius: 4.0,
                           color: Color(0x33000000),
                           offset: Offset(0.0, 2.0),
@@ -200,13 +203,90 @@ class _Auth2LoginWidgetState extends State<Auth2LoginWidget>
                                   0.0, 0.0, 0.0, 16.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  final result =
-                                      await FlutterWebAuth.authenticate(
-                                    url:
-                                        "https://fastapi-on-koyeb-pictmanager.koyeb.app/",
-                                    callbackUrlScheme: "foobar",
+                                  print("hello");
+                                  // Trigger the authentication flow
+                                  final GoogleSignInAccount? googleUser =
+                                      await GoogleSignIn().signIn();
+                                  if (googleUser == null) {
+                                    return;
+                                  }
+
+                                  // Obtain the auth details from the request
+                                  final GoogleSignInAuthentication googleAuth =
+                                      await googleUser.authentication;
+
+                                  // Create a new credential
+                                  final credential =
+                                      GoogleAuthProvider.credential(
+                                    accessToken: googleAuth.accessToken,
+                                    idToken: googleAuth.idToken,
                                   );
-                                  print(result);
+
+                                  // Once signed in, return the UserCredential
+                                  UserCredential userCred = await FirebaseAuth
+                                      .instance
+                                      .signInWithCredential(credential);
+                                  print(
+                                      "https://fastapi-on-koyeb-pictmanager.koyeb.app/login");
+                                  log(googleAuth.idToken ?? "null");
+                                  print({
+                                    "google_id": googleUser.id,
+                                    "email": googleUser.email,
+                                    "name": googleUser.displayName,
+                                    "picture": googleUser.photoUrl
+                                  });
+                                  final res = await Dio()
+                                      .post(
+                                    "https://fastapi-on-koyeb-pictmanager.koyeb.app/login?token_id=${googleAuth.idToken}&google_id=${googleUser.id}&email=${googleUser.email}&name=${googleUser.displayName}&picture=${googleUser.photoUrl}",
+                                    options: Options(
+                                      headers: {
+                                        "Content-Type": "application/json",
+                                        "accept": "application/json",
+                                      },
+                                    ),
+                                  )
+                                      .onError(
+                                          (DioError error, stackTrace) async {
+                                    return Response(
+                                      requestOptions: RequestOptions(path: ''),
+                                      statusCode:
+                                          error.response?.statusCode ?? 0,
+                                      data: error.response?.data ?? {},
+                                    );
+                                  });
+                                  log(res.data);
+                                  final resJson = json.decode(
+                                      "{${res.data.toString().replaceAll("user:", "'user':").replaceAll("'", "\"")}}");
+                                  if (resJson['user']['id'] != null) {
+                                    const FlutterSecureStorage().write(
+                                        key: "userId",
+                                        value:
+                                            resJson['user']['id'].toString());
+                                    const FlutterSecureStorage().write(
+                                        key: "username",
+                                        value: resJson['user']['username']
+                                            .toString());
+                                    const FlutterSecureStorage().write(
+                                        key: "email",
+                                        value: resJson['user']['email']
+                                            .toString());
+                                    const FlutterSecureStorage().write(
+                                        key: "picture",
+                                        value: resJson['user']['picture']
+                                            .toString());
+                                    context.pushNamedAuth(
+                                      'gallery',
+                                      context.mounted,
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Sign in failed',
+                                        ),
+                                      ),
+                                    );
+                                  }
                                 },
                                 text: 'Continue with Google',
                                 icon: const FaIcon(

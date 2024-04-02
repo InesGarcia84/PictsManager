@@ -1,0 +1,12 @@
+io.flutter.plugins.flutter_plugin_android_lifecycle-jetified-window-1.0.0-beta04-0 /Users/richard.depierre/.gradle/caches/transforms-3/3547045148f823ae82ba5f00da62432e/transformed/jetified-window-1.0.0-beta04/res
+io.flutter.plugins.flutter_plugin_android_lifecycle-core-1.6.0-1 /Users/richard.depierre/.gradle/caches/transforms-3/448e12895481b74f12aa96a40a56e1d8/transformed/core-1.6.0/res
+io.flutter.plugins.flutter_plugin_android_lifecycle-jetified-annotation-experimental-1.1.0-2 /Users/richard.depierre/.gradle/caches/transforms-3/d5b68f2b2b74dc022302f312e278ba97/transformed/jetified-annotation-experimental-1.1.0/res
+io.flutter.plugins.flutter_plugin_android_lifecycle-jetified-window-java-1.0.0-beta04-3 /Users/richard.depierre/.gradle/caches/transforms-3/e35e8dc727b74800fd8b576809d7e083/transformed/jetified-window-java-1.0.0-beta04/res
+io.flutter.plugins.flutter_plugin_android_lifecycle-main-4 /Users/richard.depierre/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.17/android/src/main/res
+io.flutter.plugins.flutter_plugin_android_lifecycle-release-5 /Users/richard.depierre/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.17/android/src/release/res
+io.flutter.plugins.flutter_plugin_android_lifecycle-pngs-6 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_plugin_android_lifecycle/generated/res/pngs/release
+io.flutter.plugins.flutter_plugin_android_lifecycle-resValues-7 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_plugin_android_lifecycle/generated/res/resValues/release
+io.flutter.plugins.flutter_plugin_android_lifecycle-rs-8 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_plugin_android_lifecycle/generated/res/rs/release
+io.flutter.plugins.flutter_plugin_android_lifecycle-mergeReleaseResources-9 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_plugin_android_lifecycle/intermediates/incremental/release/mergeReleaseResources/merged.dir
+io.flutter.plugins.flutter_plugin_android_lifecycle-mergeReleaseResources-10 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_plugin_android_lifecycle/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+io.flutter.plugins.flutter_plugin_android_lifecycle-merged_res-11 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_plugin_android_lifecycle/intermediates/merged_res/release

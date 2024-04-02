@@ -78,6 +78,8 @@ class _MyWebViewState extends State<MyWebView> {
               onWebViewCreated: (WebViewController webViewController) {
                 _controller.complete(webViewController);
               },
+              userAgent:
+                  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.106 Safari/537.36",
               onProgress: (int progress) {
                 print('WebView is loading (progress : $progress%)');
                 setState(() {

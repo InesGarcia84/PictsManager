@@ -146,6 +146,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "dio",
+      "rootUri": "file:///Users/richard.depierre/.pub-cache/hosted/pub.dev/dio-5.4.2+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
       "name": "equatable",
       "rootUri": "file:///Users/richard.depierre/.pub-cache/hosted/pub.dev/equatable-2.0.5",
       "packageUri": "lib/",
@@ -237,7 +243,7 @@
     },
     {
       "name": "firebase_storage",
-      "rootUri": "file:///Users/richard.depierre/.pub-cache/hosted/pub.dev/firebase_storage-11.5.5",
+      "rootUri": "file:///Users/richard.depierre/.pub-cache/hosted/pub.dev/firebase_storage-11.6.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -300,6 +306,42 @@
       "rootUri": "file:///Users/richard.depierre/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.17",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "flutter_secure_storage",
+      "rootUri": "file:///Users/richard.depierre/.pub-cache/hosted/pub.dev/flutter_secure_storage-9.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_secure_storage_linux",
+      "rootUri": "file:///Users/richard.depierre/.pub-cache/hosted/pub.dev/flutter_secure_storage_linux-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_secure_storage_macos",
+      "rootUri": "file:///Users/richard.depierre/.pub-cache/hosted/pub.dev/flutter_secure_storage_macos-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_secure_storage_platform_interface",
+      "rootUri": "file:///Users/richard.depierre/.pub-cache/hosted/pub.dev/flutter_secure_storage_platform_interface-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_secure_storage_web",
+      "rootUri": "file:///Users/richard.depierre/.pub-cache/hosted/pub.dev/flutter_secure_storage_web-1.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_secure_storage_windows",
+      "rootUri": "file:///Users/richard.depierre/.pub-cache/hosted/pub.dev/flutter_secure_storage_windows-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "flutter_test",
@@ -662,6 +704,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "share_plus",
+      "rootUri": "file:///Users/richard.depierre/.pub-cache/hosted/pub.dev/share_plus-7.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "share_plus_platform_interface",
+      "rootUri": "file:///Users/richard.depierre/.pub-cache/hosted/pub.dev/share_plus_platform_interface-3.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "shared_preferences",
       "rootUri": "file:///Users/richard.depierre/.pub-cache/hosted/pub.dev/shared_preferences-2.2.2",
       "packageUri": "lib/",
@@ -798,6 +852,12 @@
       "rootUri": "file:///Users/richard.depierre/.pub-cache/hosted/pub.dev/timeago-3.2.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "tuple",
+      "rootUri": "file:///Users/richard.depierre/.pub-cache/hosted/pub.dev/tuple-2.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "typed_data",
@@ -980,7 +1040,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-03-18T11:10:34.404864Z",
+  "generated": "2024-04-02T12:27:36.099151Z",
   "generator": "pub",
   "generatorVersion": "3.1.3"
 }

@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import '../schema/structs/index.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
@@ -13,13 +16,16 @@ class GetLibrariesCall {
   static Future<ApiCallResponse> call({
     String? token = 'notoken',
   }) async {
+    String userId = await FlutterSecureStorage().read(key: 'userId') ?? '';
+    print(
+        "https://fastapi-on-koyeb-pictmanager.koyeb.app/api/library/user/$userId");
     return ApiManager.instance.makeApiCall(
       callName: 'GetLibraries',
-      apiUrl: 'https://pictsManager.com/getLibraries',
+      apiUrl:
+          'https://fastapi-on-koyeb-pictmanager.koyeb.app/api/library/user/$userId',
       callType: ApiCallType.GET,
-      headers: {},
-      params: {
-        'token': token,
+      headers: {
+        'cookie': 'session=$token',
       },
       returnBody: true,
       encodeBodyUtf8: false,
@@ -31,24 +37,59 @@ class GetLibrariesCall {
 }
 
 class AddImageInLibraryCall {
-  static Future<ApiCallResponse> call({
+  static Future call({
     String? token = 'notoken',
-    FFUploadedFile? image,
+    String? image,
     int? libraryId,
     int? size,
     String? name = '',
   }) async {
+    final res = await Dio()
+        .post(
+      "https://fastapi-on-koyeb-pictmanager.koyeb.app/api/image/",
+      data: {
+        "image": image,
+        "name": name,
+        "size": size,
+        "library_id": libraryId
+      },
+      options: Options(
+        headers: {
+          "Content-Type": "application/json",
+          "accept": "application/json",
+          'cookie': 'session=$token',
+        },
+      ),
+    )
+        .onError((DioError error, stackTrace) async {
+      return Response(
+        requestOptions: RequestOptions(path: ''),
+        statusCode: error.response?.statusCode ?? 0,
+        data: error.response?.data ?? {},
+      );
+    });
+    return res.data;
+  }
+}
+
+class UploadNewLibraryCall {
+  static Future<ApiCallResponse> call({
+    String? name = '',
+  }) async {
+    String userId = await FlutterSecureStorage().read(key: 'userId') ?? '';
+    String username = await FlutterSecureStorage().read(key: 'username') ?? '';
+    print({
+      'title': name,
+      'author': username,
+      'user_id': userId,
+    });
     return ApiManager.instance.makeApiCall(
-      callName: 'Add image in library',
-      apiUrl: 'https://pictsManager.com/putImageInLibrary',
+      callName: 'upload new library',
+      apiUrl:
+          'https://fastapi-on-koyeb-pictmanager.koyeb.app/api/library?user_id=$userId&title=$name&author=$username',
       callType: ApiCallType.POST,
-      headers: {},
-      params: {
-        'token': token,
-        'image': image,
-        'libraryId': libraryId,
-        'size': size,
-        'name': name,
+      headers: {
+        'cookie': 'session=notoken',
       },
       bodyType: BodyType.MULTIPART,
       returnBody: true,
@@ -60,19 +101,62 @@ class AddImageInLibraryCall {
   }
 }
 
-class UploadNewLibraryCall {
+class DeleteImage {
   static Future<ApiCallResponse> call({
-    String? token = 'notoken',
-    String? name = '',
+    String? imageId = '',
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'upload new library',
-      apiUrl: 'https://pictsManager.com/uploadNewLibrary',
+      apiUrl:
+          'https://fastapi-on-koyeb-pictmanager.koyeb.app/api/image/$imageId',
+      callType: ApiCallType.DELETE,
+      headers: {
+        'cookie': 'session=notoken',
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class DeleteLibrary {
+  static Future<ApiCallResponse> call({
+    String? libraryId = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'delete library',
+      apiUrl:
+          'https://fastapi-on-koyeb-pictmanager.koyeb.app/api/library/$libraryId',
+      callType: ApiCallType.DELETE,
+      headers: {
+        'cookie': 'session=notoken',
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class LinkLibraryCall {
+  static Future<ApiCallResponse> call({
+    String? libraryId = '',
+  }) async {
+    String userId = await FlutterSecureStorage().read(key: 'userId') ?? '';
+    return ApiManager.instance.makeApiCall(
+      callName: 'upload new library',
+      apiUrl:
+          'https://fastapi-on-koyeb-pictmanager.koyeb.app/api/library/user/$userId/add/$libraryId',
       callType: ApiCallType.POST,
-      headers: {},
-      params: {
-        'token': token,
-        'name': name,
+      headers: {
+        'cookie': 'session=notoken',
       },
       bodyType: BodyType.MULTIPART,
       returnBody: true,
@@ -91,12 +175,11 @@ class GetImagesCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'getImages',
-      apiUrl: 'https://pictsManager.com/getImage',
+      apiUrl:
+          'https://fastapi-on-koyeb-pictmanager.koyeb.app/api/images/library/$id',
       callType: ApiCallType.GET,
-      headers: {},
-      params: {
-        'token': token,
-        'id': id,
+      headers: {
+        'cookie': 'session=$token',
       },
       returnBody: true,
       encodeBodyUtf8: false,

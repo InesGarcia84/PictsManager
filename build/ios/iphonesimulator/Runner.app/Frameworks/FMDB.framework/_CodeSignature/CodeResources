@@ -4,13 +4,36 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>FMDB.bundle/Info.plist</key>
+		<data>
+		6Ep6bF2f2DlB90Yrqgz8TUkZCvA=
+		</data>
+		<key>FMDB.bundle/PrivacyInfo.xcprivacy</key>
+		<data>
+		ucg9pita0v8d353x3NuGfxweQYU=
+		</data>
 		<key>Info.plist</key>
 		<data>
-		VHiGlCk8a6p6EZX71pjDwcE9PLE=
+		fhCTqCabMnIS0Z89FkU07b+HY5E=
 		</data>
 	</dict>
 	<key>files2</key>
-	<dict/>
+	<dict>
+		<key>FMDB.bundle/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7bTK/G8vbL4hk3HqRfBsS6jLagrAsQn750lUlITsgBg=
+			</data>
+		</dict>
+		<key>FMDB.bundle/PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Uh6274Qwdz5cAQ4YOP6d2PpdYre3bRzqjX2NqtyxROI=
+			</data>
+		</dict>
+	</dict>
 	<key>rules</key>
 	<dict>
 		<key>^.*</key>

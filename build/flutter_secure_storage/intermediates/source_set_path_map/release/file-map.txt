@@ -1,0 +1,13 @@
+com.it_nomads.fluttersecurestorage.flutter_secure_storage-jetified-window-1.0.0-beta04-0 /Users/richard.depierre/.gradle/caches/transforms-3/3547045148f823ae82ba5f00da62432e/transformed/jetified-window-1.0.0-beta04/res
+com.it_nomads.fluttersecurestorage.flutter_secure_storage-jetified-security-crypto-1.1.0-alpha06-1 /Users/richard.depierre/.gradle/caches/transforms-3/3df29827842e345ab9cb257c0b7df9f1/transformed/jetified-security-crypto-1.1.0-alpha06/res
+com.it_nomads.fluttersecurestorage.flutter_secure_storage-core-1.6.0-2 /Users/richard.depierre/.gradle/caches/transforms-3/448e12895481b74f12aa96a40a56e1d8/transformed/core-1.6.0/res
+com.it_nomads.fluttersecurestorage.flutter_secure_storage-jetified-annotation-experimental-1.1.0-3 /Users/richard.depierre/.gradle/caches/transforms-3/d5b68f2b2b74dc022302f312e278ba97/transformed/jetified-annotation-experimental-1.1.0/res
+com.it_nomads.fluttersecurestorage.flutter_secure_storage-jetified-window-java-1.0.0-beta04-4 /Users/richard.depierre/.gradle/caches/transforms-3/e35e8dc727b74800fd8b576809d7e083/transformed/jetified-window-java-1.0.0-beta04/res
+com.it_nomads.fluttersecurestorage.flutter_secure_storage-main-5 /Users/richard.depierre/.pub-cache/hosted/pub.dev/flutter_secure_storage-9.0.0/android/src/main/res
+com.it_nomads.fluttersecurestorage.flutter_secure_storage-release-6 /Users/richard.depierre/.pub-cache/hosted/pub.dev/flutter_secure_storage-9.0.0/android/src/release/res
+com.it_nomads.fluttersecurestorage.flutter_secure_storage-pngs-7 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_secure_storage/generated/res/pngs/release
+com.it_nomads.fluttersecurestorage.flutter_secure_storage-resValues-8 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_secure_storage/generated/res/resValues/release
+com.it_nomads.fluttersecurestorage.flutter_secure_storage-rs-9 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_secure_storage/generated/res/rs/release
+com.it_nomads.fluttersecurestorage.flutter_secure_storage-mergeReleaseResources-10 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_secure_storage/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.it_nomads.fluttersecurestorage.flutter_secure_storage-mergeReleaseResources-11 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_secure_storage/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.it_nomads.fluttersecurestorage.flutter_secure_storage-merged_res-12 /Users/richard.depierre/Documents/epitech/PictsManager/build/flutter_secure_storage/intermediates/merged_res/release

@@ -4,6 +4,14 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>FirebaseCoreInternal_Privacy.bundle/Info.plist</key>
+		<data>
+		IO8dwXqMUlbct3AN/YyHd/TjtT0=
+		</data>
+		<key>FirebaseCoreInternal_Privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<data>
+		ifoThrqbbqoLG4yjAruMQRaf0Dw=
+		</data>
 		<key>Headers/FirebaseCoreInternal-Swift.h</key>
 		<data>
 		Lf1AC57QNNxkL6AbcC3XcfkeCIc=
@@ -14,15 +22,15 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		KnENrfpxRaJaSXCCaLVntvkzLh0=
+		akSlicYDLTz38NuBnB/A0mQ7UCs=
 		</data>
 		<key>Modules/FirebaseCoreInternal.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		M1lZmyqNaT8WDXnRS29+nnXVjk0=
+		nNUb7LVzj0d7OuBqq6SrKWS/rl4=
 		</data>
 		<key>Modules/FirebaseCoreInternal.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		CG+CY7zTkSGyfSFY8uOJBGhvRRU=
+		VvBwf9GQ3SPuCshgXWyrUlJifh4=
 		</data>
 		<key>Modules/FirebaseCoreInternal.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -55,6 +63,20 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>FirebaseCoreInternal_Privacy.bundle/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			PBEZiCw9anmPjh7frzAFkQT+uDUEllSXZBN8fQEWnII=
+			</data>
+		</dict>
+		<key>FirebaseCoreInternal_Privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			W3/peUI97ePgivwppC8A9ghiddxUioTCl3QjWGPu0+8=
+			</data>
+		</dict>
 		<key>Headers/FirebaseCoreInternal-Swift.h</key>
 		<dict>
 			<key>hash2</key>
@@ -73,14 +95,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			MzmG14wwtl6OD5l+3F1J4Dx5mMSrclDEqFWmm8cAd0s=
+			w+DIEWet8DrKNfmCPnJ9nkeNT5Y8ajw8VtdCgcFazUo=
 			</data>
 		</dict>
 		<key>Modules/FirebaseCoreInternal.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			pQDijCcGAZC5dZOU9ROaMaV0IByZGSEdQK2L/eK1UBg=
+			yA63zBJ++sevXRiEv+aaVlBsWsyQFvenoua6CkdPZ+8=
 			</data>
 		</dict>
 		<key>Modules/FirebaseCoreInternal.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
