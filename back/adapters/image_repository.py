@@ -8,7 +8,7 @@ from ports.i_image_repository import IImageRepository
 
 class ImageRepository(IImageRepository):
     
-    imgClassifier = ImageClassifier()
+    imgClassifier: ImageClassifier = ImageClassifier()
 
     def __init__(self, db = None):
         if db is None:
@@ -17,12 +17,15 @@ class ImageRepository(IImageRepository):
 
     def create_image(self, image: str, name: str, size: int, library_id) -> Image:
         tag = ""
+        
         try:
             tag = self.imgClassifier.classify(image)
-        except:
-            print("Classifier error")
-            
-        new_image = Image(image=image, name=name, size=size, library_id=library_id, tag=tag)
+        except Exception as e:
+            print("Classifier error : ", e)
+            self.session.rollback()
+            raise
+        
+        new_image = Image(image=image, name=name, size=size, library_id=library_id, tags=tag)
         try:
             self.session.add(new_image)
             self.session.commit()
