@@ -1,0 +1,12 @@
+transformers
+pillow
+datasets
+evaluate
+torch
+torchvision
+scikit-learn
+evaluate
+accelerate
+tensorboardX
+pandas
+matplotlib
