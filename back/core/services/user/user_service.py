@@ -16,7 +16,7 @@ class UserService(IUserService):
         picture=picture
 
         # Check if user already exist
-
+        print(google_auth_id)
         if self.get_user_by_google_id(google_auth_id) is None:
             user = self.user_repository.create_user(google_auth_id, username, email, picture)
         else:
