@@ -1,0 +1,8 @@
+venv/
+datasets/
+
+# Mac
+.DS_Store
+
+resnet-50-cifar100-beans/
+resnet-50-cifar100-custom-beans/

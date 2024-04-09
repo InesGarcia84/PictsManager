@@ -3,9 +3,12 @@ from typing import List
 from sqlalchemy.orm import Session
 from infrastructure.db import get_db
 from core.entities.image import Image
+from core.utils.classifier import ImageClassifier
 from ports.i_image_repository import IImageRepository
 
 class ImageRepository(IImageRepository):
+    
+    imgClassifier: ImageClassifier = ImageClassifier()
 
     def __init__(self, db = None):
         if db is None:
@@ -13,7 +16,16 @@ class ImageRepository(IImageRepository):
         self.session = db
 
     def create_image(self, image: str, name: str, size: int, library_id) -> Image:
-        new_image = Image(image=image, name=name, size=size, library_id=library_id)
+        tag = ""
+        
+        try:
+            tag = self.imgClassifier.classify(image)
+        except Exception as e:
+            print("Classifier error : ", e)
+            self.session.rollback()
+            raise
+        
+        new_image = Image(image=image, name=name, size=size, library_id=library_id, tags=tag)
         try:
             self.session.add(new_image)
             self.session.commit()
