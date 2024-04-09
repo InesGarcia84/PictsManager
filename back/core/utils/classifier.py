@@ -19,7 +19,7 @@ class ImageClassifier(BaseModel):
   class Config:
      arbitrary_types_allowed = True
      
-  modelName: str = 'google/vit-base-patch16-224'
+  modelName: str = 'Az-r-ow/resnet-50-cifar100-custom'
   model: Model = ViTForImageClassification.from_pretrained(modelName)
   processor: Processor =  ViTImageProcessor.from_pretrained(modelName)
   
@@ -28,6 +28,7 @@ class ImageClassifier(BaseModel):
   
   def classify(self, image: str) -> str:
     image = Image.open(requests.get(image, stream=True).raw)
+    image = Image.resize((32, 32))
     inputs = self.processor(images=image, return_tensors="pt")
     outputs = self.model(**inputs)
     predictions = outputs.logits.argmax(-1).item()
