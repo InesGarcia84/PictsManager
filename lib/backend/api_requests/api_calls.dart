@@ -17,13 +17,31 @@ class GetLibrariesCall {
     String? token = 'notoken',
   }) async {
     String userId = await FlutterSecureStorage().read(key: 'userId') ?? '';
-    print(
-        "https://fastapi-on-koyeb-pictmanager.koyeb.app/api/library/user/$userId");
+    print("http://10.101.52.242:8080/api/library/user/$userId");
     return ApiManager.instance.makeApiCall(
       callName: 'GetLibraries',
-      apiUrl:
-          'https://fastapi-on-koyeb-pictmanager.koyeb.app/api/library/user/$userId',
+      apiUrl: 'http://10.101.52.242:8080/api/library/user/$userId',
       callType: ApiCallType.GET,
+      headers: {
+        'cookie': 'session=$token',
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static Future<ApiCallResponse> callSearch({
+    String? token = 'notoken',
+    String? search = '',
+  }) async {
+    print("http://10.101.52.242:8080/api/library/search?string=$search");
+    return ApiManager.instance.makeApiCall(
+      callName: 'GetLibraries',
+      apiUrl: "http://10.101.52.242:8080/api/library/search?string=$search",
+      callType: ApiCallType.POST,
       headers: {
         'cookie': 'session=$token',
       },
@@ -46,7 +64,7 @@ class AddImageInLibraryCall {
   }) async {
     final res = await Dio()
         .post(
-      "https://fastapi-on-koyeb-pictmanager.koyeb.app/api/image/",
+      "http://10.101.52.242:8080/api/image/",
       data: {
         "image": image,
         "name": name,
@@ -86,7 +104,7 @@ class UploadNewLibraryCall {
     return ApiManager.instance.makeApiCall(
       callName: 'upload new library',
       apiUrl:
-          'https://fastapi-on-koyeb-pictmanager.koyeb.app/api/library?user_id=$userId&title=$name&author=$username',
+          'http://10.101.52.242:8080/api/library?user_id=$userId&title=$name&author=$username',
       callType: ApiCallType.POST,
       headers: {
         'cookie': 'session=notoken',
@@ -107,8 +125,7 @@ class DeleteImage {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'upload new library',
-      apiUrl:
-          'https://fastapi-on-koyeb-pictmanager.koyeb.app/api/image/$imageId',
+      apiUrl: 'http://10.101.52.242:8080/api/image/$imageId',
       callType: ApiCallType.DELETE,
       headers: {
         'cookie': 'session=notoken',
@@ -129,8 +146,7 @@ class DeleteLibrary {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'delete library',
-      apiUrl:
-          'https://fastapi-on-koyeb-pictmanager.koyeb.app/api/library/$libraryId',
+      apiUrl: 'http://10.101.52.242:8080/api/library/$libraryId',
       callType: ApiCallType.DELETE,
       headers: {
         'cookie': 'session=notoken',
@@ -153,7 +169,7 @@ class LinkLibraryCall {
     return ApiManager.instance.makeApiCall(
       callName: 'upload new library',
       apiUrl:
-          'https://fastapi-on-koyeb-pictmanager.koyeb.app/api/library/user/$userId/add/$libraryId',
+          'http://10.101.52.242:8080/api/library/user/$userId/add/$libraryId',
       callType: ApiCallType.POST,
       headers: {
         'cookie': 'session=notoken',
@@ -173,11 +189,32 @@ class GetImagesCall {
     int? id = 0,
     String? token = 'notoken',
   }) async {
+    print('http://10.101.52.242:8080/api/images/library/$id');
+    print('session=$token');
     return ApiManager.instance.makeApiCall(
       callName: 'getImages',
-      apiUrl:
-          'https://fastapi-on-koyeb-pictmanager.koyeb.app/api/images/library/$id',
+      apiUrl: 'http://10.101.52.242:8080/api/images/library/$id',
       callType: ApiCallType.GET,
+      headers: {
+        'cookie': 'session=$token',
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+  static Future<ApiCallResponse> callSearch({
+    String search = '',
+    String? token = 'notoken',
+  }) async {
+    print('http://10.101.52.242:8080/api/image/search?string=$search');
+    print('session=$token');
+    return ApiManager.instance.makeApiCall(
+      callName: 'getImages',
+      apiUrl: 'http://10.101.52.242:8080/api/image/search?string=$search',
+      callType: ApiCallType.POST,
       headers: {
         'cookie': 'session=$token',
       },

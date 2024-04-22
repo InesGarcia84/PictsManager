@@ -29,6 +29,14 @@ class GalleryWidget extends StatefulWidget {
 
 class _GalleryWidgetState extends State<GalleryWidget> {
   late GalleryModel _model;
+  bool loading = false;
+  bool isEditing = false;
+  DateTime date = DateTime.now();
+  Map<String, dynamic> data = {};
+  int pos = 0;
+  final TextEditingController searchController = TextEditingController();
+  bool isOpen = false;
+  String search = '';
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -47,6 +55,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -160,41 +169,130 @@ class _GalleryWidgetState extends State<GalleryWidget> {
             size: 24.0,
           ),
         ),
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-          automaticallyImplyLeading: false,
-          title: Padding(
-            padding:
-                const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
-            child: Text(
-              'Gallery',
-              style: FlutterFlowTheme.of(context).headlineLarge.override(
-                    fontFamily: 'Outfit',
-                    color: FlutterFlowTheme.of(context).primaryText,
+        appBar: isEditing
+            ? AppBar(
+                backgroundColor: Colors.white,
+                title: SizedBox(
+                  width: size.width * 0.6,
+                  height: 40,
+                  child: TextField(
+                    controller: searchController,
+                    decoration: InputDecoration(
+                      hintText: 'Rechercher',
+                      hintStyle: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 18,
+                      ),
+                      border: InputBorder.none,
+                    ),
+                    onSubmitted: (value) async {
+                      if (value.isNotEmpty) {
+                        setState(() {
+                          search = value;
+                        });
+                      }
+                    },
                   ),
-            ),
-          ),
-          actions: [
-            Padding(
-              padding:
-                  const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-              child: FlutterFlowIconButton(
-                borderRadius: 20.0,
-                buttonSize: 40.0,
-                icon: Icon(
-                  Icons.settings,
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  size: 24.0,
                 ),
-                onPressed: () async {
-                  context.pushNamed('auth_2_Profile');
-                },
+                centerTitle: false,
+                elevation: 0,
+                leading: IconButton(
+                  splashRadius: 1,
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      search = '';
+                      searchController.text = '';
+                      isEditing = false;
+                    });
+                  },
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 10.0, 20.0, 10.0),
+                    child: IconButton(
+                      splashRadius: 1,
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                      onPressed: () async {
+                        if (searchController.text.isEmpty) {
+                          setState(() {
+                            search = '';
+                            searchController.text = '';
+                            isEditing = false;
+                          });
+                        } else {
+                          setState(() {
+                            search = '';
+                            searchController.text = '';
+                          });
+                        }
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                ],
+              )
+            : AppBar(
+                backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+                automaticallyImplyLeading: false,
+                title: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      16.0, 16.0, 16.0, 16.0),
+                  child: Text(
+                    'Gallery',
+                    style: FlutterFlowTheme.of(context).headlineLarge.override(
+                          fontFamily: 'Outfit',
+                          color: FlutterFlowTheme.of(context).primaryText,
+                        ),
+                  ),
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 16.0, 0.0, 0.0),
+                    child: FlutterFlowIconButton(
+                      borderRadius: 20.0,
+                      buttonSize: 40.0,
+                      icon: Icon(
+                        Icons.search_rounded,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        size: 24.0,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isEditing = true;
+                        });
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 16.0, 0.0, 0.0),
+                    child: FlutterFlowIconButton(
+                      borderRadius: 20.0,
+                      buttonSize: 40.0,
+                      icon: Icon(
+                        Icons.settings,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        size: 24.0,
+                      ),
+                      onPressed: () async {
+                        context.pushNamed('auth_2_Profile');
+                      },
+                    ),
+                  ),
+                ],
+                centerTitle: false,
+                elevation: 0.0,
               ),
-            ),
-          ],
-          centerTitle: false,
-          elevation: 0.0,
-        ),
         body: SafeArea(
           top: true,
           child: Align(
@@ -207,11 +305,35 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    if (search != "")
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 0.0,
+                            bottom: 8.0,
+                            left: 16.0,
+                          ),
+                          child: Text(
+                            'Search folder results: ',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyText1
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  fontSize: 14.0,
+                                ),
+                          ),
+                        ),
+                      ),
                     Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(
                           16.0, 0.0, 16.0, 0.0),
                       child: FutureBuilder<ApiCallResponse>(
-                        future: GetLibrariesCall.call(),
+                        future: (search != "")
+                            ? GetLibrariesCall.callSearch(search: search)
+                            : GetLibrariesCall.call(),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -397,6 +519,176 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                         },
                       ),
                     ),
+                    if (search != "")
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 16.0,
+                            bottom: 8.0,
+                            left: 16.0,
+                          ),
+                          child: Text(
+                            'Search image results: ',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyText1
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  fontSize: 14.0,
+                                ),
+                          ),
+                        ),
+                      ),
+                    if (search != "")
+                      FutureBuilder<ApiCallResponse>(
+                          future: GetImagesCall.callSearch(
+                            search: search,
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+                            List<Map<String, dynamic>> librariesResponse =
+                                (jsonDecode(snapshot.data!.response?.body ?? "")
+                                        as List<dynamic>)
+                                    .map(
+                                      (e) => e as Map<String, dynamic>,
+                                    )
+                                    .toList();
+                            final list = (librariesResponse
+                                        .map<ImageStruct?>(
+                                            ImageStruct.maybeFromMap)
+                                        .toList() as Iterable<ImageStruct?>)
+                                    .withoutNulls
+                                    ?.toList() ??
+                                [];
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 0.0, 16.0, 0.0),
+                                  child: Builder(
+                                    builder: (context) {
+                                      return Wrap(
+                                        spacing: 0.0,
+                                        runSpacing: 0.0,
+                                        alignment: WrapAlignment.start,
+                                        crossAxisAlignment:
+                                            WrapCrossAlignment.start,
+                                        direction: Axis.horizontal,
+                                        runAlignment: WrapAlignment.start,
+                                        verticalDirection:
+                                            VerticalDirection.down,
+                                        clipBehavior: Clip.none,
+                                        children: List.generate(list.length,
+                                            (imagesIndex) {
+                                          final imagesItem = list[imagesIndex];
+                                          return Padding(
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(8.0, 8.0, 8.0, 0.0),
+                                            child: Container(
+                                              width: 150.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              child: Stack(
+                                                children: [
+                                                  Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        child: Image.network(
+                                                          imagesItem.image ??
+                                                              'https://picsum.photos/seed/951/600',
+                                                          width: 200.0,
+                                                          height: 200.0,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(8.0,
+                                                                8.0, 8.0, 0.0),
+                                                        child: Text(
+                                                          imagesItem.name ?? '',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                                fontSize: 14.0,
+                                                              ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.topRight,
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                          Radius.circular(10.0),
+                                                        ),
+                                                        color: Colors.red
+                                                            .withOpacity(0.7),
+                                                      ),
+                                                      child: IconButton(
+                                                        onPressed: () async {
+                                                          await DeleteImage.call(
+                                                              imageId: imagesItem
+                                                                  .id
+                                                                  .toString());
+                                                          setState(() {});
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.delete,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        }),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            );
+                          }),
                   ],
                 ),
               ),

@@ -226,18 +226,13 @@ class _Auth2LoginWidgetState extends State<Auth2LoginWidget>
                                   UserCredential userCred = await FirebaseAuth
                                       .instance
                                       .signInWithCredential(credential);
-                                  print(
-                                      "https://fastapi-on-koyeb-pictmanager.koyeb.app/login");
+                                  print("http://10.101.52.242:8080/login");
                                   log(googleAuth.idToken ?? "null");
-                                  print({
-                                    "google_id": googleUser.id,
-                                    "email": googleUser.email,
-                                    "name": googleUser.displayName,
-                                    "picture": googleUser.photoUrl
-                                  });
+                                  print(
+                                      "http://10.101.52.242:8080/login?token_id=${googleAuth.idToken}&google_id=${googleUser.id}&email=${googleUser.email}&name=${googleUser.displayName}&picture=${googleUser.photoUrl}");
                                   final res = await Dio()
                                       .post(
-                                    "https://fastapi-on-koyeb-pictmanager.koyeb.app/login?token_id=${googleAuth.idToken}&google_id=${googleUser.id}&email=${googleUser.email}&name=${googleUser.displayName}&picture=${googleUser.photoUrl}",
+                                    "http://10.101.52.242:8080/login?token_id=${googleAuth.idToken}&google_id=${googleUser.id}&email=${googleUser.email}&name=${googleUser.displayName}&picture=${googleUser.photoUrl}",
                                     options: Options(
                                       headers: {
                                         "Content-Type": "application/json",
@@ -257,6 +252,7 @@ class _Auth2LoginWidgetState extends State<Auth2LoginWidget>
                                   log(res.data);
                                   final resJson = json.decode(
                                       "{${res.data.toString().replaceAll("user:", "'user':").replaceAll("'", "\"")}}");
+                                  print(resJson);
                                   if (resJson['user']['id'] != null) {
                                     const FlutterSecureStorage().write(
                                         key: "userId",

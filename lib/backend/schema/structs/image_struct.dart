@@ -14,11 +14,13 @@ class ImageStruct extends FFFirebaseStruct {
     String? name,
     int? id,
     int? size,
+    String? tag,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _image = image,
         _name = name,
         _id = id,
         _size = size,
+        _tag = tag,
         super(firestoreUtilData);
 
   // "image" field.
@@ -47,11 +49,18 @@ class ImageStruct extends FFFirebaseStruct {
   void incrementSize(int amount) => _size = size + amount;
   bool hasSize() => _size != null;
 
+  // "tag" field.
+  String? _tag;
+  String get tag => _tag ?? '';
+  set tag(String? val) => _tag = val;
+  bool hasTag() => _tag != null;
+
   static ImageStruct fromMap(Map<String, dynamic> data) => ImageStruct(
         image: data['image'] as String?,
         name: data['name'] as String?,
         id: castToType<int>(data['id']),
         size: castToType<int>(data['size']),
+        tag: data['tag'] as String?,
       );
 
   static ImageStruct? maybeFromMap(dynamic data) =>
@@ -62,6 +71,7 @@ class ImageStruct extends FFFirebaseStruct {
         'name': _name,
         'id': _id,
         'size': _size,
+        'tag': _tag,
       }.withoutNulls;
 
   @override
@@ -81,6 +91,10 @@ class ImageStruct extends FFFirebaseStruct {
         'size': serializeParam(
           _size,
           ParamType.int,
+        ),
+        'tag': serializeParam(
+          _tag,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -106,6 +120,11 @@ class ImageStruct extends FFFirebaseStruct {
           ParamType.int,
           false,
         ),
+        tag: deserializeParam(
+          data['tag'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -117,7 +136,8 @@ class ImageStruct extends FFFirebaseStruct {
         image == other.image &&
         name == other.name &&
         id == other.id &&
-        size == other.size;
+        size == other.size &&
+        tag == other.tag;
   }
 
   @override
@@ -129,6 +149,7 @@ ImageStruct createImageStruct({
   String? name,
   int? id,
   int? size,
+  String? tag,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -139,6 +160,7 @@ ImageStruct createImageStruct({
       name: name,
       id: id,
       size: size,
+      tag: tag,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

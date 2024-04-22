@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "810831811982-54b8eood5serv4s8dn2jn1nto4iaf5q8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pictentreprise.pictsmanager",
+            "certificate_hash": "3533e504117e4f34e541a19be66e917683544ca5"
+          }
+        },
+        {
           "client_id": "810831811982-6pa1c0pke4t5f7oi1ckqvt37c409i85o.apps.googleusercontent.com",
           "client_type": 3
         }

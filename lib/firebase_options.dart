@@ -26,10 +26,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -58,5 +55,16 @@ class DefaultFirebaseOptions {
     messagingSenderId: '810831811982',
     projectId: 'picts-manager-lf5qjh',
     storageBucket: 'picts-manager-lf5qjh.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyDLlLUydCWv6lV3RKE9TfufekIf-RpPL34',
+    appId: '1:810831811982:ios:dc661e9b7207e0ee77c0df',
+    messagingSenderId: '810831811982',
+    projectId: 'picts-manager-lf5qjh',
+    storageBucket: 'picts-manager-lf5qjh.appspot.com',
+    androidClientId: '810831811982-2nkofj0aun0dd86sf43or019e0r2ksoe.apps.googleusercontent.com',
+    iosClientId: '810831811982-7j9lqht8274krjjk35ckj6v9qanuptgq.apps.googleusercontent.com',
+    iosBundleId: 'com.pictentrepriseepitech.pictsmanager',
   );
 }
