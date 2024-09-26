@@ -42,7 +42,7 @@ class LibraryStruct extends FFFirebaseStruct {
 
   static LibraryStruct fromMap(Map<String, dynamic> data) => LibraryStruct(
         id: castToType<int>(data['id']),
-        name: data['name'] as String?,
+        name: data['title'] as String?,
         imageIds: getDataList(data['imageIds']),
       );
 

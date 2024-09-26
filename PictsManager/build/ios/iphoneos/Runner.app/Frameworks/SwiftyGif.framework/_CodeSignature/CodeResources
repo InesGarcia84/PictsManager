@@ -6,11 +6,34 @@
 	<dict>
 		<key>Info.plist</key>
 		<data>
-		06u8z0kTMS5vK052HIUD8afQaTI=
+		FvTSoCzqthZzP4ppYWRqfsvopi0=
+		</data>
+		<key>SwiftyGif.bundle/Info.plist</key>
+		<data>
+		G1+UPaCNd8joCfsGsEQGcJUxUCM=
+		</data>
+		<key>SwiftyGif.bundle/PrivacyInfo.xcprivacy</key>
+		<data>
+		i3YpomTpJHpRGpdt+oGaesmknBg=
 		</data>
 	</dict>
 	<key>files2</key>
-	<dict/>
+	<dict>
+		<key>SwiftyGif.bundle/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Q8IgBR/TakfqXHBjU+4TteStgsVDBku5iRdca5h7xzo=
+			</data>
+		</dict>
+		<key>SwiftyGif.bundle/PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			jWXQtDoSYs/inoM5bACz25T7Eg1E0RiNknNB8UpsIjw=
+			</data>
+		</dict>
+	</dict>
 	<key>rules</key>
 	<dict>
 		<key>^.*</key>

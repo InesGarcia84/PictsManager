@@ -107,7 +107,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'ImageGallery',
           path: '/imageGallery',
           builder: (context, params) => ImageGalleryWidget(
-            imageIds: params.getParam<int>('imageIds', ParamType.int, true),
             name: params.getParam('name', ParamType.String),
             libraryId: params.getParam('libraryId', ParamType.int),
           ),
